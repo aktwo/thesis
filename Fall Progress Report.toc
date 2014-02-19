@@ -1,0 +1,16 @@
+\contentsline {section}{\numberline {1}Introduction}{2}
+\contentsline {subsection}{\numberline {1.1}Motivation}{2}
+\contentsline {subsection}{\numberline {1.2}What is POM?}{2}
+\contentsline {subsection}{\numberline {1.3}The Multi-Armed Bandit Problem and POM}{2}
+\contentsline {section}{\numberline {2}Methods}{2}
+\contentsline {subsection}{\numberline {2.1}UCB1 Algorithm}{2}
+\contentsline {subsection}{\numberline {2.2}Matching Heuristics}{3}
+\contentsline {subsection}{\numberline {2.3}POM Workflow}{3}
+\contentsline {section}{\numberline {3}Data}{4}
+\contentsline {section}{\numberline {4}POM Implementation}{4}
+\contentsline {subsection}{\numberline {4.1}Chatroom Back-end}{4}
+\contentsline {subsection}{\numberline {4.2}Web Server Back-end}{6}
+\contentsline {subsection}{\numberline {4.3}POM Front-end}{7}
+\contentsline {section}{\numberline {5}Conclusions}{9}
+\contentsline {section}{\numberline {6}Development Timeline}{9}
+\contentsline {section}{Bibliography}{9}
