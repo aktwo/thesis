@@ -12,5 +12,4 @@
 \contentsline {subsection}{\numberline {4.2}Web Server Back-end}{6}
 \contentsline {subsection}{\numberline {4.3}POM Front-end}{7}
 \contentsline {section}{\numberline {5}Conclusions}{9}
-\contentsline {section}{\numberline {6}Development Timeline}{9}
 \contentsline {section}{Bibliography}{9}

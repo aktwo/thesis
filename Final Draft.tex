@@ -12,7 +12,6 @@
 % Import graphics package
 \usepackage{graphicx}
 \DeclareGraphicsExtensions{.pdf,.png,.jpg}
-\usepackage{wrapfig}
 
 % Import math package
 \usepackage{amsmath}
@@ -61,7 +60,7 @@
 
 \begin{abstract}
 
-This thesis uses a stochastic multi-armed bandit framework to attempt to optimize the matching process of an online anonymous chat web application. By using different matching heuristics as the "arms" in the bandit problem formulation and monitoring user behavior over time, we can see whether bandits can be used to select effective matching heuristics.
+This thesis uses a variant of the classic stochastic multi-armed bandit framework to attempt to improve the average conversation quality of an online anonymous chat web application. While the traditional algorithm would converge on the "optimal" conversation starter and use it for every conversation, this novel version of the algorithm attempts to provide new conversation starters for each user while still attempting to maximize the conversation quality.
 
 \end{abstract}
 
@@ -76,11 +75,11 @@ I believe that Tigers Anonymous (TA) satisfies a crucial need at Princeton (and 
 
 \subsection{What is Tigers Anonymous?}
 
-Tigers Anonymous (TA) is the working title for a chat application that allows any Princeton student to be matched with another Princeton student. After being matched, the students will be taken to an anonymous chatroom where they can start a conversation. Once both participants have exchanged a pre-determined number of messages, a drop-down menu appears containing a button (see Figure ~\ref{fig:DropDownMenu})Additionally, there will be a button that, if both participants click, will authenticate both users via Facebook and reveal each users' identities to the other to facilitate communication outside of TA. The algorithm used to select matching heuristics is the main focus of this thesis and the success of the algorithm will be measured by whether users click on the "Reveal My Identity" button. For more information on how POM is implemented, see the "POM Implementation" section.
+Tigers Anonymous (TA) is the working title for a chat application that allows any Princeton student to be matched with another Princeton student. After being matched, the students will be taken to an anonymous chatroom where they can start a conversation. Once both participants have exchanged a pre-determined number of messages, a drop-down menu appears containing two choices (see Figure \ref{fig:DropDownMenu} below). If both users click "Yes", the application will authenticate both users via Facebook and reveal each users' identities to the other to facilitate communication outside of TA. The algorithm used to select the conversation starters is the main focus of this thesis and the success of the algorithm will be measured by whether users' identities are revealed (i.e. both participants opt to de-anonymize the conversation). For more information on how POM is implemented, see the "POM Implementation" section.
 
-\begin{figure}
+\begin{figure}[h]
 \centering
-\includegraphics[trim= 0mm 0mm 2mm 2mm, clip, scale=0.36]{DropDownMenu}
+\includegraphics[trim= 0mm 0mm 2mm 2mm, clip, scale=0.36]{./Pictures/DropDownMenu}
 \caption{TA Drop-Down Menu}
 \label{fig:DropDownMenu}
 \end{figure}
