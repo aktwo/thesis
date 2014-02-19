@@ -1,4 +1,4 @@
-\documentclass{article}
+\documentclass{report}
 
 % Create headers
 \usepackage{fancyhdr}
@@ -60,22 +60,22 @@
 
 \begin{abstract}
 
-This thesis uses a variant of the classic stochastic multi-armed bandit framework to attempt to improve the average conversation quality of an online anonymous chat web application. While the traditional algorithm would converge on the "optimal" conversation starter and use it for every conversation, this novel version of the algorithm attempts to provide new conversation starters for each user while still attempting to maximize the conversation quality.
+This thesis uses a variant of the classic stochastic multi-armed bandit framework to improve the  user experience in an anonymous chat application online by selecting good conversation starters. While the traditional algorithm would converge on the "optimal" conversation starter and use it for every conversation, this novel version of the algorithm attempts to provide new conversation starters for each user while still attempting to maximize the conversation quality. This thesis examines the empirical behavior of such an algorithm in a web application deployed at Princeton University.
 
 \end{abstract}
 
 \tableofcontents
 \newpage
 
-\section{Introduction}
+\chapter{Introduction}
 
-\subsection{Motivation}
+\section{Motivation}
 
 I believe that Tigers Anonymous (TA) satisfies a crucial need at Princeton (and potentially at other college campuses). As students become more settled within the community, it becomes increasingly harder to branch out and meet people outside one's immediate social graph. This is where TA comes in. By providing a way to anonymously be matched with, chat with, and potentially meet fellow classmates, TA allows students to make new connections and shake up their social network. Additionally, I wanted my thesis to be a tangible application of the multi-armed bandit problem and a step towards making Princeton more "hacker-friendly", both of which are satisfied by TA.
 
-\subsection{What is Tigers Anonymous?}
+\section{What is Tigers Anonymous?}
 
-Tigers Anonymous (TA) is the working title for a chat application that allows any Princeton student to be matched with another Princeton student. After being matched, the students will be taken to an anonymous chatroom where they can start a conversation. Once both participants have exchanged a pre-determined number of messages, a drop-down menu appears containing two choices (see Figure \ref{fig:DropDownMenu} below). If both users click "Yes", the application will authenticate both users via Facebook and reveal each users' identities to the other to facilitate communication outside of TA. The algorithm used to select the conversation starters is the main focus of this thesis and the success of the algorithm will be measured by whether users' identities are revealed (i.e. both participants opt to de-anonymize the conversation). For more information on how POM is implemented, see the "POM Implementation" section.
+Tigers Anonymous (TA) is the title of a chat application that allows any Princeton student to be matched with another Princeton student. After being matched, the students will be taken to an anonymous chatroom where they can start a conversation. Once both participants have exchanged a pre-determined number of messages, a drop-down menu appears containing two choices (see Figure \ref{fig:DropDownMenu} below). If both users click "Yes", the application will authenticate both users via Facebook and reveal each users' identities to the other to facilitate communication outside of TA. The algorithm used to select the conversation starters is the main focus of this thesis and the success of the algorithm will be measured by whether both users opt to de-anonymize the conversation. For more information on how TA is implemented, see the "TA Implementation" section.
 
 \begin{figure}[h]
 \centering
@@ -84,7 +84,7 @@ Tigers Anonymous (TA) is the working title for a chat application that allows an
 \label{fig:DropDownMenu}
 \end{figure}
 
-\subsection{The Multi-Armed Bandit Problem and POM}
+\section{The Multi-Armed Bandit Problem and POM}
 
 This section will contain: 
 \begin{itemize}
@@ -93,33 +93,20 @@ This section will contain:
 \item Description of the algorithms that can be used to solve the POM bandit problem and a justification of the UCB algorithm was chosen
 \end{itemize}
 
-\section{Methods}
+\chapter{Methods}
 
-\subsection{UCB1 Algorithm}
+\section{UCB1-AKSB Algorithm}
 
-The tentative multi-armed bandit algorithm will be the UCB1 algorithm proposed by \citep{auer02} and re-summarized below.
+The tentative multi-armed bandit algorithm will be a variant of the UCB1 algorithm proposed by \citep{auer02} as explained below.
 
-The UCB1 algorithm is initialized by playing each arm once and creating a vector $\bar{X} = [\bar{x}_1, \bar{x}_2, ..., \bar{x}_K]$ where $K$ is the number of matching heuristics to be used and 
-$\bar{x}_i$ is the empirical estimate of the probability that "Reveal My Identity" will be clicked given the use of matching heuristic $i$ to pair the users. Then, for each subsequent matching, we pick the matching heuristic $i$ using the following rule: 
+The UCB1-AKSB algorithm is initialized by playing each arm once and creating a vector $\bar{X} = [\bar{x}_1, \bar{x}_2, ..., \bar{x}_K]$ where $K$ is the number of conversation starters
+$\bar{x}_i$ is the empirical estimate of the probability that "Reveal My Identity" will be clicked given the use of conversation starter $i$. Then, for each subsequent matching, we pick the matching heuristic $i$ using the following rule: 
 
 $$ \underset{i \in{K}}{\argmax{}} \bar{x}_i + \sqrt{\frac{2\ln{n}}{n_i}}$$
 
 In this equation $n_i$ is the number of times that machine $i$ has been played and $n$ is the total number of matches that have been completed.
 
-\subsection{Matching Heuristics}
-
-Let $\bar{t}_j$ be the average number of times that user $j$ has clicked the "Reveal My Identity" button (i.e. the empirical estimate of the probability that they will click the button) and let $\triangle_j$ be the time since user $j$ has last visited the site (with $\triangle_j$ = $M$ if user $j$ is a new visitor, and $M$ is an arbitrarily large number). Let $U$ be the set of users available to be matched and let $i$ be the index of the user that needs to be matched. The following are the matching heuristics that will serve as the set of $K$ arms being used in the UCB1 algorithm.
-
-\begin{itemize}
-  \item Random: $ j \in{U} $
-  \item Hi-Lo: $\underset{j \in{U}}{\argmax} \lvert{\bar{t}_j - \bar{t}_i}\rvert\ $
-  \item Hi-Hi: $\underset{j \in{U}}{\argmin} \lvert{\bar{t}_j - \bar{t}_i}\rvert\ $
-  \item Far-Near: $\underset{j \in{U}}{\argmax} \lvert{\triangle_j - \triangle_i}\rvert\ $
-  \item Far-Far: $\underset{j \in{U}}{\argmin} \lvert{\triangle_j - \triangle_i}\rvert\ $
-  \item More to come!
-\end{itemize}
-
-\subsection{POM Workflow}
+\section{POM Workflow}
 
 The basic workflow of using the upper-confidence bound algorithm for multi-armed stochastic bandits is as follows: 
 
@@ -131,214 +118,51 @@ The basic workflow of using the upper-confidence bound algorithm for multi-armed
 \item Record the 6-tuple representing the data point of this chat session (see Data section below for more details).
 \end{enumerate}
 
-\section{Data}
+\chapter{Data}
 
 The data that will be collected can be represented by the vector of 6-tuples $(a_i, b_i, k_i, l_i, t_i, p_i)$ where $a_i$ and $b_i$ represent the user ids of the two participants in the chat, $k$ represents the index of the matching heuristic used, $l$ represents the length of the chat conversation, $t$ represents the time that the chat was initiated, $p \in{(0, 1)} $ is a discrete variable with $0$ representing failure to click "Reveal My Identity" button and $1$ representing success, and $i$ representing the unique ID of the chat conversation.
 
 The efficacy of the UCB1 algorithm will be assessed by testing the average value of $l$ and $p$ over time to see whether the optimized matching heuristics cause people to chat longer and/or be more likely to click "Reveal My Identity". Additionally, the average values of $l$ and $p$ for each matching heuristic $k$ will be analyzed to see if there are statistically significant differences between the matching heuristics.
 
-\section{POM Implementation}
+\chapter{Conclusions}
 
-The following pieces of code implement the back-end and front-end functionality of the basic POM prototype. 
+Analysis of data gathered and conclusions drawn go here.
 
-\subsection{Chatroom Back-end} 
+%Appendices
+\appendix
+\chapter{TA Implementation}
+\label{Appendix_TA_Implementation}
+
+The following pieces of code implement the back-end and front-end functionality of Tigers Anonymous. 
+
+\section{Chat-room Server Code} 
 
 This module is used to facilitate multiple anonymous chatrooms, as well as having the code to implement the matching heuristics. The code below is written in a modular way so that multiple heuristics can be implemented using the UCB1 algorithm in the next stage of development (i.e. the getItem method and the SocketWrapper object to manage client-side user data). User history data will be stored as a cookie on the client-side, thus eliminating the need to manage a large database of user history data on the server-side. The only database that needs to be maintained on the server-side is the vector of the historical performance of each of the matching heuristics.
 
 \begin{lstlisting}
-var all_sockets = null;
-var threshold = 0;
-var queue = new Queue();
-var myName = 'Me';
-var theirName = 'Anonymous Tiger';
-
-exports.set_sockets = function  (sockets) {
-  all_sockets = sockets;
-};
-
-exports.connect_chatter = function  (current_socket) {
-    
-    var partner;
-    var currentSocketWrapper = {socket: current_socket, userdata: null};
-    
-    current_socket.emit('entrance', {message: 'Welcome to the chat room!'});
-    if (queue.length() <= threshold) {
-	queue.addItem(currentSocketWrapper);
-	current_socket.emit('waiting', {message: 'Waiting for partner to join.'});
-	current_socket.on('disconnect', function() {
-		queue.removeItem(currentSocketWrapper);
-	    });
-    }
-    
-    else {
-	partner =  queue.getItem(currentSocketWrapper, 0);
-	current_socket.emit('ready', {message: 'Connected! Go ahead and start chatting.'});
-	partner.socket.emit('ready', {message: 'Connected! Go ahead and start chatting.'});
-	
-	current_socket.on('disconnect', function() {
-		partner.socket.emit('exit', {message: theirName + ' has disconnected. Refresh the page to start another chat!'});
-	    });
-	partner.socket.on('disconnect', function() {
-		current_socket.emit('exit', {message: theirName + ' has disconnected. Refresh the page to start another chat!'});
-	    });
-
-	current_socket.on('chat', function(data) {
-		current_socket.emit('chat', {message: myName + ': ' + data.message});
-		partner.socket.emit('chat', {message: theirName + ': ' + data.message});
-	    });
-	partner.socket.on('chat', function(data) {
-		current_socket.emit('chat', {message: theirName + ': ' + data.message});
-		partner.socket.emit('chat', {message: myName + ': ' + data.message});
-	    });
-
-    }
-};
-
-exports.failure = function  (socket) {
-    socket.emit('error', {message: 'Please log in to the chatroom.'});
-};
-
-function Queue ()
-{
-    this.array = new Array();
-    this.addItem = function(item) {
-	this.array.push(item);
-    }
-    this.getItem = function(current_socket, matching_algorithm) {
-	return this.array.shift();
-    }
-    this.removeItem = function(item) {
-	var location = this.array.indexOf(item);
-	if (location !== -1) {
-	    this.array.splice(location, 1);
-	}
-    }
-    this.length = function() {
-	return this.array.length;
-    }
-};
-
+CODE!
 \end{lstlisting}
 
-\subsection{Web Server Back-end}
+\section{Authentication Server Code}
 
 This module runs the web-server that POM is running on. IP address filtering (to Princeton internal network IP addresses) and Facebook integration will be implemented in this module.
 
 \begin{lstlisting}
-var io = require('socket.io'),
-  connect = require('connect'),
-  chatter = require('chatter');
-var port = process.env.PORT || 3000;
-var app = connect().use(connect.static('public')).listen(port);
-\\ Implement IP address filtering here
-var chat_room = io.listen(app);
-chatter.set_sockets(chat_room.sockets);
-chat_room.sockets.on('connection', function (socket) {
-  chatter.connect_chatter(socket);
-});
+CODE!
 \end{lstlisting}
 
-\subsection{POM Front-end}
+\section{Front-End Code}
 
 This HTML page provides the basic user interface for POM. It will be updated to use Angular.js so that POM looks more visually appealing. The picture below is the extremely bare-bones version of the prototype that is currently being hosted on Heroku for testing. 
 
 \lstset{language=HTML}
 \begin{lstlisting}
-<html>
-<head>
-<script src="http://akshays-chatroom.herokuapp.com/socket.io/socket.io.js"></script>
-<script src="jquery-1.7.2.min.js"></script>
-<script type="text/javascript" charset="utf-8">
-jQuery(document).ready(function () {
-	var log_chat_message = function  (message, type) {
-		var li = jQuery('<li />').text(message);
-		
-		if (type === 'system') {
-			li.css({'font-weight': 'bold'});
-		} else if (type === 'leave' || type === 'error') {
-			li.css({'font-weight': 'bold', 'color': '#F00'});
-		}
-				
-		jQuery('#chat_log').append(li);
-	};
-
-	var socket = io.connect('http://akshays-chatroom.herokuapp.com');
-
-	socket.on('entrance', function  (data) {
-		log_chat_message(data.message, 'system');
-	});
-
-        socket.on('waiting', function(data) {
-                log_chat_message(data.message, 'system');
-        });
-
-        socket.on('ready', function(data) {
-                log_chat_message(data.message, 'system');
-        });
-
-	socket.on('exit', function  (data) {
-		log_chat_message(data.message, 'leave');
-	});
-
-	socket.on('chat', function  (data) {
-		log_chat_message(data.message, 'normal');
-	});
-
-	socket.on('error', function  (data) {
-		log_chat_message(data.message, 'error');
-	});
-
-	jQuery('#chat_box').keypress(function (event) {
-		if (event.which == 13) {
-			socket.emit('chat', {message: jQuery('#chat_box').val()});
-			jQuery('#chat_box').val('');
-		}
-	});
-});
-
-</script>
-<style type="text/css" media="screen">
-	div#chatroom {
-		display: block;
-		height: 300px;
-		border: 1px solid #999;
-		overflow: auto;
-		width: 100%;
-		margin-bottom: 10px;
-		position: relative;
-	}
-
-	ul#chat_log {
-		list-style: none;
-		position: absolute;
-		bottom: 0px;
-	}
-
-	input#chat_box {
-		width: 99%;
-	}
-</style>
-</head>
-<body>
-
-	<div id="chatroom">
-		<ul id="chat_log">
-		</ul>
-	</div>
-
-	<input type="text" name="chat_box" value="" id="chat_box" placeholder="type to chat..." />
-
-</body>
-</html>
-
+HTML
 \end{lstlisting}
 
-\section{Conclusions}
-
-Analysis of data gathered and conclusions drawn go here.
 
 % Generate bibliography
-\addcontentsline{toc}{section}{Bibliography}
+\addcontentsline{toc}{chapter}{Bibliography}
 \bibliographystyle{plainnat}
 \bibliography{Bibliography}
 
