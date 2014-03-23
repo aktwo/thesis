@@ -1,19 +1,22 @@
 \contentsline {chapter}{\numberline {1}Introduction}{2}
 \contentsline {section}{\numberline {1.1}Motivation}{2}
 \contentsline {section}{\numberline {1.2}What is Tigers Anonymous?}{2}
-\contentsline {section}{\numberline {1.3}The Multi-Armed Bandit Problem and POM}{2}
-\contentsline {chapter}{\numberline {2}Methods}{4}
-\contentsline {section}{\numberline {2.1}UCB1-AKSB Algorithm}{4}
-\contentsline {section}{\numberline {2.2}Tigers Anonymous Workflow}{4}
-\contentsline {chapter}{\numberline {3}Data}{6}
-\contentsline {chapter}{\numberline {4}Conclusions}{7}
-\contentsline {chapter}{\numberline {A}TA Implementation}{8}
-\contentsline {section}{\numberline {A.1}Back-End Functionality}{8}
-\contentsline {subsection}{\numberline {A.1.1}UCB1-AKSB Implementation}{8}
-\contentsline {subsection}{\numberline {A.1.2}Princeton IP-Address Filtering Functionality}{10}
-\contentsline {subsection}{\numberline {A.1.3}Conversation Starter Functionality}{11}
-\contentsline {subsection}{\numberline {A.1.4}User Matching Functionality}{14}
-\contentsline {subsection}{\numberline {A.1.5}Back-end Web Server Functionality}{17}
-\contentsline {subsection}{\numberline {A.1.6}Conversation Metadata Logging Model}{19}
-\contentsline {section}{\numberline {A.2}Front-End Code}{20}
-\contentsline {chapter}{Bibliography}{20}
+\contentsline {chapter}{\numberline {2}Literature Review}{4}
+\contentsline {chapter}{\numberline {3}Methods}{5}
+\contentsline {section}{\numberline {3.1}UCB1-AKSB Algorithm}{5}
+\contentsline {section}{\numberline {3.2}Tigers Anonymous Workflow}{5}
+\contentsline {section}{\numberline {3.3}UCB1-AKSB Implementation}{6}
+\contentsline {section}{\numberline {3.4}Data Formatting}{8}
+\contentsline {chapter}{\numberline {4}Data Analysis}{10}
+\contentsline {section}{\numberline {4.1}Overall Regret Analysis}{10}
+\contentsline {section}{\numberline {4.2}Individual User Analysis}{10}
+\contentsline {chapter}{\numberline {5}Conclusions}{11}
+\contentsline {chapter}{\numberline {A}Conversation Starters}{12}
+\contentsline {chapter}{\numberline {A}TA Implementation}{15}
+\contentsline {section}{\numberline {A.1}Back-End Functionality}{15}
+\contentsline {subsection}{\numberline {A.1.1}Princeton IP-Address Filtering Functionality}{15}
+\contentsline {subsection}{\numberline {A.1.2}User Matching Functionality}{16}
+\contentsline {subsection}{\numberline {A.1.3}Back-end Web Server Functionality}{19}
+\contentsline {subsection}{\numberline {A.1.4}Conversation Metadata Logging Model}{21}
+\contentsline {section}{\numberline {A.2}Front-End Code}{22}
+\contentsline {chapter}{Bibliography}{22}

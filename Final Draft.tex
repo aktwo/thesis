@@ -71,20 +71,20 @@ This thesis uses a variant of the classic stochastic multi-armed bandit framewor
 
 \section{Motivation}
 
-I believe that Tigers Anonymous (TA) satisfies a crucial need at Princeton (and potentially at other college campuses). As students become more settled within their community, it becomes increasingly harder to branch out and meet people outside their immediate social graph. This is where TA comes in. By providing a way to anonymously be matched with, chat with, and potentially meet fellow classmates, TA allows students to make new connections and shake up their social network. Additionally, I wanted my thesis to be a tangible application of the multi-armed bandit problem and a step towards making Princeton more "hacker-friendly", both of which are satisfied by TA.
+I believe that Tigers Anonymous (TA) satisfies a crucial need at Princeton (and even potentially at other college campuses). As students become more settled within their college community, it becomes increasingly harder to branch out and meet people outside their immediate social graph. This is where TA comes in. By providing a way to anonymously be matched with, chat with, and potentially meet fellow classmates, TA allows students to make new connections and shake up their social network. Additionally, I wanted my thesis to be a tangible application of the multi-armed bandit problem and a step towards making Princeton more "hacker-friendly", both of which are satisfied by TA.
 
 \section{What is Tigers Anonymous?}
 
-Tigers Anonymous (TA) is the title of a chat application that allows any Princeton student to be matched with another Princeton student. After being matched, the students will be taken to an anonymous chatroom where they can start a conversation. Once both participants have exchanged a pre-determined number of messages, a drop-down menu appears containing two choices (see Figure \ref{fig:DropDownMenu} below). If both users click "Yes", the application will authenticate both users via Facebook and reveal each users' identities to the other to facilitate communication outside of TA. The algorithm used to select the conversation starters is the main focus of this thesis and the success of the algorithm will be measured by whether both users opt to de-anonymize the conversation. For more information on how TA is implemented, see Appendix \ref{AppendixTAImplementation}.
+Tigers Anonymous (TA) is the title of a chat application that allows any Princeton student to be matched with another Princeton student. After being matched, the students will be taken to an anonymous chatroom where they can start a conversation. Once both participants have exchanged a pre-determined number of messages, a drop-down menu appears containing two choices (see Figure \ref{fig:DropDownMenu} below). If both users click "Yes", the application will authenticate both users via Facebook and reveal each users' identities to the other to facilitate communication outside of TA. The algorithm used to select the conversation starters is the main focus of this thesis and the algorithm will classify any given conversation as "good" by whether both users opt to de-anonymize the conversation. For more information on how TA is implemented, see Appendix \ref{AppendixTAImplementation}.
 
 \begin{figure}[h]
 \centering
-\includegraphics[trim= 0mm 0mm 2mm 2mm, clip, scale=0.36]{./Pictures/DropDownMenu}
+\includegraphics[trim= 120mm 0mm 120mm 0mm, clip, scale=0.36]{./Pictures/FullChatDropDown}
 \caption{TA Drop-Down Menu}
 \label{fig:DropDownMenu}
 \end{figure}
 
-\section{The Multi-Armed Bandit Problem and POM}
+\chapter{Literature Review}
 
 This section will contain: 
 \begin{itemize}
@@ -97,7 +97,7 @@ This section will contain:
 
 \section{UCB1-AKSB Algorithm}
 
-The multi-armed bandit algorithm will be my novel variant of the UCB1 algorithm \citep{auer02} as explained below:
+The multi-armed bandit algorithm used by Tigers Anonymous is a novel variant of the well-known UCB1 algorithm \citep{auer02}. The new algorithm is outlined below:
 
 Before explaining the algorithm, it will be useful to introduce notation. Let the users be represented as the set $U$ and the bandit arms as the set $X$. Let the set of arms that have already been played for user $u\in{U}$ be represented by the set $X^u \subset{X}$. The goal of the UCB1-AKSB algorithm is to pick some arm $x\in{X}$ given the pair of users $u,v \in{U}$. In this specific application, the goal is to pick the optimal conversation starter $x\in{X}$.
 
@@ -118,36 +118,36 @@ $$$$
 
 In this equation $n_x$ is the number of times that conversation starter $x$ has been played and $n$ is the total number of conversation starters that have been shown. It is useful to note here that ties are broken arbitrarily.
 
-\section{Tigers Anonymous Workflow}
+\section{Tigers Anonymous Data Collection Methods}
 
-The basic workflow of using the upper-confidence bound algorithm for multi-armed stochastic bandits is as follows: 
+The complete data-collection method used for this thesis is outlined below: 
 
 \begin{enumerate}
-\item Two users join the chat server and are matched.
-\item Conversation starter is selected based on the UCB1-AKSB algorithm described above.
-\item Record the 10-tuple representing the data point of this chat session (see Data section below for more details).
+\item Two users visit www.tigersanonymous.com/chat from a Princeton IP address.
+\item The users are directed to the chat server and are matched on a first-come, first-served basis.
+\item A conversation starter is selected based on the UCB1-AKSB algorithm described above.
+\item After either of the users disconnects, a 10-tuple representing the chat session is logged in a database (see Data Format section below for more details).
 \end{enumerate}
 
-\chapter{Data}
+\section{Tigers Anonymous Data Format}
 
 The data that will be collected can be represented by the vector of 10-tuples $(x_i, y_i, t0_i, t1_i, q_i, b_i, c1_i, c2_i, m1_i, m2_i)$ where $x_i$ and $y_i$ represent the pseudonymous user ids of the two participants in the chat, $t0_i$ and $t1_i$ represent the start and end times of the conversation, $q_i$ represents the conversation starter, $b_i \in {(0, 1)}$ represents whether the drop-down menu was displayed (i.e. both chat participants exchanged more than a predefined number of messages), $c1_i, c2_i \in{(0, 1)}$ represent whether users $x_i$ and $y_i$ opted to de-anonymize the conversation respectively and $m1_i, m2_i \in{(0,1)}$ represent the number of messages that user $x_i$ and $y_i$ sent respectively. The subscript $i$ is unique for each conversation. 
 
-The efficacy of the UCB1-AKSB algorithm will be assessed by testing the average value of $l$ and $p$ over time to see whether the optimized conversation starters cause people to chat longer and/or be more likely to opt for de-anonymization.
+A sample of this data is shown below: 
 
-\chapter{Conclusions}
+\begin{lstlisting}[language=java]
 
-Analysis of data gathered and conclusions drawn go here.
+[{ "userID1" : "9a675a6f581fd1dfa0b982826e75b4f5", "userID2" : "a8262bb13e641e2bf5dcb3985b2061be", "question" : "Do you believe in love at first sight?", "startTime" : 1390873110621, "endTime" : 1390873162944, "buttonDisplayed" : false, "user1Clicked" : false, "user2Clicked" : false, "user1MessagesSent" : 1, "user2MessagesSent" : 0, "_id" : "52e70a4ac43b6d020079e52d", "__v" : 0 },
+{ "userID1" : "a8262bb13e641e2bf5dcb3985b2061be", "userID2" : "9a675a6f581fd1dfa0b982826e75b4f5", "question" : "Do you believe in soul mates?", "startTime" : 1390873219878, "endTime" : 1390873263469, "buttonDisplayed" : false, "user1Clicked" : false, "user2Clicked" : false, "user1MessagesSent" : 1, "user2MessagesSent" : 2, "_id" : "52e70aafc43b6d020079e52e", "__v" : 0 },
+{ "userID1" : "27ac4f2d7e40b5249c2edcba19e21fb8", "userID2" : "370f85e443ad3ee24a879b1ce5a2b54b", "question" : "What is one thing you miss about being a kid?", "startTime" : 1390876198530, "endTime" : 1390876307059, "buttonDisplayed" : false, "user1Clicked" : false, "user2Clicked" : false, "user1MessagesSent" : 1, "user2MessagesSent" : 0, "_id" : "52e71693c43b6d020079e52f", "__v" : 0 },
+{ "userID1" : "370f85e443ad3ee24a879b1ce5a2b54b", "userID2" : "6e0fe76fca80cf2920bd5fc7717cf6dd", "question" : "What's one thing that you learned this week?", "startTime" : 1390881063228, "endTime" : 1390882681992, "buttonDisplayed" : true, "user1Clicked" : true, "user2Clicked" : true, "user1MessagesSent" : 33, "user2MessagesSent" : 37, "_id" : "52e72f79c43b6d020079e531", "__v" : 0 },
+...]
 
-%Appendices
-\appendix
-\chapter{TA Implementation}
-\label{AppendixTAImplementation}
+\end{lstlisting}
 
-The following pieces of code implement the back-end and front-end functionality of Tigers Anonymous. 
+\section{Tigers Anonymous UCB1-AKSB Implementation}
 
-\section{Back-End Functionality}
-
-\subsection{UCB1-AKSB Implementation}
+This is the code on the Tigers Anonymous server that implements the UCB1-AKSB algorithm.
 
 \begin{lstlisting}
 var questions = require('./questions').list;
@@ -251,44 +251,29 @@ var UCB1 = function(data, callback) {
 
 \end{lstlisting}
 
-\subsection{Princeton IP-Address Filtering Functionality}
+\chapter{Data Analysis}
 
-\begin{lstlisting}
+\section{Overall Regret Analysis}
 
-var range_check = require('range_check');
+- For both FB matching and conversation length
 
-// Pre-defined Princeton IP address blocks
-var princetonIPs = [
-  "128.112.0.0/16",
-  "140.180.0.0/16",
-  "204.153.48.0/22",
-  "66.180.176.0/24",
-  "66.180.177.0/24",
-  "66.180.180.0/22"
-];
+The efficacy of the UCB1-AKSB algorithm will be assessed by testing the average value of $l$ and $p$ over time to see whether the optimized conversation starters cause people to chat longer and/or be more likely to opt for de-anonymization.
 
-// Check to ensure that the user's IP is a valid Princeton IP
-var isValidIP = function (userIP) {
-  if (userIP === "127.0.0.1" || // for debugging
-      range_check.in_range(userIP, "192.168.0.0/16") ||
-      range_check.in_range(userIP, "10.0.0.0/8")) {
-    return true;
-  }
-  for (var i = 0; i < princetonIPs.length; i++) {
-    if (range_check.in_range(userIP, princetonIPs[i])) {
-      return true;
-    }
-  }
-  return false;
-}
+\section{Individual User Analysis}
 
-exports.isValidIP = isValidIP;
+\chapter{Conclusions}
 
-\end{lstlisting}
+\section{Summary of Findings}
+\section{Improvements}
 
-\subsection{Conversation Starter Functionality}
+Analysis of data gathered and conclusions drawn go here.
 
-Presented as an array. BLAH.
+%Appendices
+\appendix
+\chapter{Conversation Starters}
+\label{AppendixConversationStarters}
+
+The following is the array of conversation starters used in Tigers Anonymous.
 
 \begin{lstlisting}
 
@@ -414,6 +399,49 @@ exports.list = [
   "What's one thing you'd like to change about Princeton?",
   "How was your RCA during your freshman year?"
 ];
+
+\end{lstlisting}
+
+\appendix
+\chapter{TA Implementation}
+\label{AppendixTAImplementation}
+
+The following pieces of code implement the back-end and front-end functionality of Tigers Anonymous unrelated to the UCB1-AKSB algorithm.
+
+\section{Back-End Functionality}
+
+\subsection{Princeton IP-Address Filtering Functionality}
+
+\begin{lstlisting}
+
+var range_check = require('range_check');
+
+// Pre-defined Princeton IP address blocks
+var princetonIPs = [
+  "128.112.0.0/16",
+  "140.180.0.0/16",
+  "204.153.48.0/22",
+  "66.180.176.0/24",
+  "66.180.177.0/24",
+  "66.180.180.0/22"
+];
+
+// Check to ensure that the user's IP is a valid Princeton IP
+var isValidIP = function (userIP) {
+  if (userIP === "127.0.0.1" || // for debugging
+      range_check.in_range(userIP, "192.168.0.0/16") ||
+      range_check.in_range(userIP, "10.0.0.0/8")) {
+    return true;
+  }
+  for (var i = 0; i < princetonIPs.length; i++) {
+    if (range_check.in_range(userIP, princetonIPs[i])) {
+      return true;
+    }
+  }
+  return false;
+}
+
+exports.isValidIP = isValidIP;
 
 \end{lstlisting}
 
@@ -568,7 +596,6 @@ exports.connectChatter = function(socket, userID) {
   if (queue.length === 0) {
     queue.push(user);
 
-    // TODO: remove listener instead of checking index
     user.socket.on('disconnect', function() {
       var index = queue.indexOf(user);
       if (index !== -1) {
@@ -733,6 +760,8 @@ mongoose.model('Conversation', conversationSchema);
 RAILS CODE GOES HERE!
 
 \end{lstlisting}
+
+\
 
 
 % Generate bibliography
