@@ -20,12 +20,15 @@ Perform data analysis
   - Finalize ubigraph recording to play in presentation
   - Make 2D graph representation of first and second batch of users
   - Plot cumulative regret and cumulative regret per turns played to see if there's any convergence
-    x do this for both facebook chats and immediate disconnects
+    X generate time series for both facebook chats and immediate disconnects
+    o plot results
   - Give conditional probabilities for chat attributes over time (i.e. on a per-user basis, did we see any improvement in chat attributes):
-    x do this for matching and number of chat messages exchanged
+    o do this for matching and number of chat messages exchanged
 
 Conclusions:
   - The point of this paper is to empirically analyze a variant of UCB to see how it works, if it is successful, it could be applied in a variety of areas: news article recommendation, etc. etc. and it's much easier to do than a contextual bandit (i.e. less computational overhead)
+  - Explanations for not working: people ignore the conversation starter
+
 
 Future ideas
   - Add moving time window to "seen" questions to allow the algorithm to work continuously

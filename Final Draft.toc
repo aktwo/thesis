@@ -4,13 +4,15 @@
 \contentsline {chapter}{\numberline {2}Literature Review}{4}
 \contentsline {chapter}{\numberline {3}Methods}{5}
 \contentsline {section}{\numberline {3.1}UCB1-AKSB Algorithm}{5}
-\contentsline {section}{\numberline {3.2}Tigers Anonymous Workflow}{5}
-\contentsline {section}{\numberline {3.3}UCB1-AKSB Implementation}{6}
-\contentsline {section}{\numberline {3.4}Data Formatting}{8}
+\contentsline {section}{\numberline {3.2}Tigers Anonymous Data Collection Methods}{6}
+\contentsline {section}{\numberline {3.3}Tigers Anonymous Data Format}{6}
+\contentsline {section}{\numberline {3.4}Tigers Anonymous UCB1-AKSB Implementation}{7}
 \contentsline {chapter}{\numberline {4}Data Analysis}{10}
 \contentsline {section}{\numberline {4.1}Overall Regret Analysis}{10}
 \contentsline {section}{\numberline {4.2}Individual User Analysis}{10}
 \contentsline {chapter}{\numberline {5}Conclusions}{11}
+\contentsline {section}{\numberline {5.1}Summary of Findings}{11}
+\contentsline {section}{\numberline {5.2}Improvements}{11}
 \contentsline {chapter}{\numberline {A}Conversation Starters}{12}
 \contentsline {chapter}{\numberline {A}TA Implementation}{15}
 \contentsline {section}{\numberline {A.1}Back-End Functionality}{15}
