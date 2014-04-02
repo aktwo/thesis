@@ -25,12 +25,14 @@ def first_user_messages_sent(convo):
   return convo['user1MessagesSent']
 def second_user_messages_sent(convo):
   return convo['user2MessagesSent']
-def first_user_disconnected(convo):
-  return first_user_messages_sent(convo) == 0
-def second_user_disconnected(convo):
-  return second_user_messages_sent(convo) == 0
+def total_user_messages_sent(convo):
+  return (first_user_messages_sent(convo) + second_user_messages_sent(convo))
+def first_user_participated(convo):
+  return first_user_messages_sent(convo) != 0
+def second_user_participated(convo):
+  return second_user_messages_sent(convo) != 0
 def no_immediate_disconnect_occurred(convo):
-  return not(first_user_disconnected(convo) and second_user_disconnected(convo))
+  return (first_user_participated(convo) or second_user_participated(convo))
 
 #############################################################
 ### Helper functions to extract data from input JSON file ###
@@ -135,7 +137,7 @@ def get_moving_average(data, window_size):
 #######################################################
 
 # Takes in ordered dictionary d and saves it as name
-def save_plot(d, title, xlabel='Date', ylabel='Metric'):
+def save_dict_plot(d, title, xlabel='Date', ylabel='Metric'):
   x = []
   y = []
   for key in d:
@@ -149,6 +151,42 @@ def save_plot(d, title, xlabel='Date', ylabel='Metric'):
   fig.autofmt_xdate()
   fig.savefig(title+'.jpg')
 
+def save_list_plot(l, title, xlabel='Conversation Index', ylabel='Metric'):
+  fig, ax = plt.subplots()
+  fig.suptitle(title)
+  plt.xlabel(xlabel)
+  plt.ylabel(ylabel)
+  plt.plot(l)
+  fig.savefig(title+'.jpg')
+
+# Win ratio analysis, both daily and cumulatively
+def do_win_ratio_analysis(data, metric, metric_label, y_label, threshold=20):
+  daily_wins_and_plays = daily_win_play_data(data, metric)
+  cumulative_wins_and_plays = cumulative_win_play_data(data, metric)
+  daily_win_ratio = win_ratio(daily_wins_and_plays, threshold)
+  cumulative_win_ratio = win_ratio(cumulative_wins_and_plays)
+  save_dict_plot(daily_win_ratio, 'Daily ' + metric_label, ylabel=y_label)
+  save_dict_plot(cumulative_win_ratio, 'Cumulative ' + metric_label, ylabel=y_label)
+
+def do_cumulative_regret_analysis(data, metric, metric_label, y_label='Cumulative Regret'):
+  cumulative_regret_data = cumulative_regret(data, metric)
+  save_list_plot(cumulative_regret_data, metric_label, ylabel=y_label)
+
+def do_per_user_analysis(data, user1_metric, user2_metric, metric_title, slow_moving_average_window, fast_moving_average_window):
+  user_data = generate_user_data(data, user1_metric, user2_metric)
+  slow_moving_average = get_moving_average(user_data, slow_moving_average_window)
+  fast_moving_average = get_moving_average(user_data, fast_moving_average_window)
+  fig, ax = plt.subplots()
+  fig.suptitle(metric_title)
+  plt.xlabel('Number of uses')
+  plt.ylabel(metric_title)
+  plt.plot(user_data, label=metric_title)
+  plt.plot(slow_moving_average, 'r--', label=('Slow-Moving Average (' + str(slow_moving_average_window) + ')'))
+  plt.plot(fast_moving_average, 'g--', label=('Fast-Moving Average (' + str(fast_moving_average_window) + ')'))
+  plt.legend()
+  fig.savefig(metric_title  +'.jpg')
+
+
 ####################################################################
 ### Commands to use the above functions to perform data analysis ###
 ####################################################################
@@ -156,25 +194,16 @@ def save_plot(d, title, xlabel='Date', ylabel='Metric'):
 # Load the JSON data
 data = json.load(open('ta_data.json', 'r'))
 
-# # FB win ratio, both daily and cumulatively
-# fb_daily_wins_and_plays = daily_win_play_data(data, fb_match_occurred)
-# fb_cumulative_wins_and_plays = cumulative_win_play_data(data, fb_match_occurred)
-# fb_daily_win_ratio = win_ratio(fb_daily_wins_and_plays, threshold=20)
-# fb_cumulative_win_ratio = win_ratio(fb_cumulative_wins_and_plays)
-# save_plot(fb_daily_win_ratio, 'Daily TA De-Anonymization', ylabel='Percent of participants opting for de-anonymization')
-# save_plot(fb_cumulative_win_ratio, 'Cumulative TA De-Anonymization', ylabel='Percent of participants opting for de-anonymization')
+# Do win-ratio analysis
+do_win_ratio_analysis(data, fb_match_occurred, 'TA De-Anonymization', 'Proportion of De-Anonymized Conversations')
+do_win_ratio_analysis(data, no_immediate_disconnect_occurred, 'TA Participation', 'Participation Rate')
+do_win_ratio_analysis(data, total_user_messages_sent, 'TA Conversation Length (Messages Exchanged)', 'Average Conversation Length (# of messages exchanged)')
 
-# Disconnect win ratio
+# Do cumulative regret analysis
+do_cumulative_regret_analysis(data, fb_match_occurred, 'TA Cumulative Regret')
 
-# Cumulative regret analysis for FB
-
-# Per user data analysis
-fb_user_data = generate_user_data(data, first_user_clicked, second_user_clicked)
-disconnect_user_data = generate_user_data(data, first_user_disconnected, second_user_disconnected)
-user_messages_sent = generate_user_data(data, first_user_messages_sent, second_user_messages_sent)
-plt.plot(user_messages_sent)
-moving_average = get_moving_average(user_messages_sent, 20)
-plt.plot(moving_average, 'r--')
-plt.show()
-
+# Do per-user analysis
+do_per_user_analysis(data, first_user_clicked, second_user_clicked, 'Per User FB Connect', 40, 20)
+do_per_user_analysis(data, first_user_participated, second_user_participated, 'Per User Participation', 40, 20)
+do_per_user_analysis(data, first_user_messages_sent, second_user_messages_sent, 'Per User Messages Sent', 40, 20)
 
