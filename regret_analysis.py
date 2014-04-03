@@ -149,7 +149,7 @@ def save_dict_plot(d, title, xlabel='Date', ylabel='Metric'):
   plt.ylabel(ylabel)
   plt.plot(x, y)
   fig.autofmt_xdate()
-  fig.savefig(title+'.jpg')
+  fig.savefig('./Pictures/'+title.replace(' ', '')+'.jpg')
 
 def save_list_plot(l, title, xlabel='Conversation Index', ylabel='Metric'):
   fig, ax = plt.subplots()
@@ -157,7 +157,7 @@ def save_list_plot(l, title, xlabel='Conversation Index', ylabel='Metric'):
   plt.xlabel(xlabel)
   plt.ylabel(ylabel)
   plt.plot(l)
-  fig.savefig(title+'.jpg')
+  fig.savefig('./Pictures/'+title.replace(' ', '')+'.jpg')
 
 # Win ratio analysis, both daily and cumulatively
 def do_win_ratio_analysis(data, metric, metric_label, y_label, threshold=20):
@@ -184,7 +184,7 @@ def do_per_user_analysis(data, user1_metric, user2_metric, metric_title, slow_mo
   plt.plot(slow_moving_average, 'r--', label=('Slow-Moving Average (' + str(slow_moving_average_window) + ')'))
   plt.plot(fast_moving_average, 'g--', label=('Fast-Moving Average (' + str(fast_moving_average_window) + ')'))
   plt.legend()
-  fig.savefig(metric_title  +'.jpg')
+  fig.savefig('./Pictures/' + metric_title.replace(' ', '') +'.jpg')
 
 
 ####################################################################
@@ -193,6 +193,10 @@ def do_per_user_analysis(data, user1_metric, user2_metric, metric_title, slow_mo
 
 # Load the JSON data
 data = json.load(open('ta_data.json', 'r'))
+second_half_data = json.load(open('second_half_ta_data.json', 'r'))
+
+# Do cumulative regret analysis on truncated data
+do_cumulative_regret_analysis(second_half_data, fb_match_occurred, 'TA De-Anonymization Regret (Second Half of Data)')
 
 # Do win-ratio analysis
 do_win_ratio_analysis(data, fb_match_occurred, 'TA De-Anonymization', 'Proportion of De-Anonymized Conversations')
@@ -200,7 +204,9 @@ do_win_ratio_analysis(data, no_immediate_disconnect_occurred, 'TA Participation'
 do_win_ratio_analysis(data, total_user_messages_sent, 'TA Conversation Length (Messages Exchanged)', 'Average Conversation Length (# of messages exchanged)')
 
 # Do cumulative regret analysis
-do_cumulative_regret_analysis(data, fb_match_occurred, 'TA Cumulative Regret')
+do_cumulative_regret_analysis(data, fb_match_occurred, 'TA De-Anonymization Regret')
+do_cumulative_regret_analysis(data, no_immediate_disconnect_occurred, 'TA Participation Rate Regret')
+do_cumulative_regret_analysis(data, total_user_messages_sent, 'TA Messages Sent Regret')
 
 # Do per-user analysis
 do_per_user_analysis(data, first_user_clicked, second_user_clicked, 'Per User FB Connect', 40, 20)
