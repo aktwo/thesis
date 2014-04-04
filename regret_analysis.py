@@ -103,14 +103,17 @@ def win_ratio(win_play_data, threshold=0):
 def generate_user_data(data, user1_metric, user2_metric):
   user_data = {}
   for convo in data:
-    if first_user(convo) in user_data:
-      user_data[first_user(convo)].append(user1_metric(convo))
-    else:
-      user_data[first_user(convo)] = [user1_metric(convo)]
-    if second_user(convo) in user_data:
-      user_data[second_user(convo)].append(user2_metric(convo))
-    else:
-      user_data[second_user(convo)] = [user2_metric(convo)]
+    # Because migration to new server caused unique userIDs to
+    # reset after 1/29/2014
+    if conversation_date(convo) > date(2014, 1, 29):
+      if first_user(convo) in user_data:
+        user_data[first_user(convo)].append(user1_metric(convo))
+      else:
+        user_data[first_user(convo)] = [user1_metric(convo)]
+      if second_user(convo) in user_data:
+        user_data[second_user(convo)].append(user2_metric(convo))
+      else:
+        user_data[second_user(convo)] = [user2_metric(convo)]
   user_aggregate = []
   for user in user_data:
     user_aggregate.append(user_data[user])
