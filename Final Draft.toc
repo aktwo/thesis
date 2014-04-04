@@ -3,27 +3,29 @@
 \contentsline {section}{\numberline {1.2}Why Multi-Armed Bandits?}{3}
 \contentsline {chapter}{\numberline {2}Literature Review}{5}
 \contentsline {chapter}{\numberline {3}Methods}{6}
-\contentsline {section}{\numberline {3.1}UCB1-AKSB Algorithm}{6}
-\contentsline {section}{\numberline {3.2}Tigers Anonymous Data Collection Methods}{7}
-\contentsline {section}{\numberline {3.3}Tigers Anonymous Data Format}{7}
-\contentsline {section}{\numberline {3.4}Tigers Anonymous UCB1-AKSB Implementation}{8}
+\contentsline {section}{\numberline {3.1}Assumptions}{6}
+\contentsline {section}{\numberline {3.2}UCB1-AKSB Algorithm}{6}
+\contentsline {section}{\numberline {3.3}Tigers Anonymous Data Collection Methods}{7}
+\contentsline {section}{\numberline {3.4}Tigers Anonymous Data Format}{7}
+\contentsline {section}{\numberline {3.5}Tigers Anonymous UCB1-AKSB Implementation}{8}
 \contentsline {chapter}{\numberline {4}Data Analysis}{11}
 \contentsline {section}{\numberline {4.1}Regret Analysis}{11}
-\contentsline {section}{\numberline {4.2}UCB1-AKSB Algorithm Efficacy}{12}
-\contentsline {section}{\numberline {4.3}Individual User Analysis}{13}
-\contentsline {chapter}{\numberline {5}Conclusions}{15}
-\contentsline {section}{\numberline {5.1}Summary of Findings}{15}
-\contentsline {section}{\numberline {5.2}Potential Applications}{15}
-\contentsline {section}{\numberline {5.3}Further Improvements}{15}
-\contentsline {chapter}{Appendices}{16}
-\contentsline {chapter}{\numberline {A}Conversation Starters}{17}
-\contentsline {chapter}{\numberline {B}TA Back-End Implementation}{20}
-\contentsline {section}{\numberline {B.1}Princeton IP-Address Filtering Functionality}{20}
-\contentsline {section}{\numberline {B.2}User Matching Functionality}{21}
-\contentsline {section}{\numberline {B.3}Web Server Functionality}{25}
-\contentsline {section}{\numberline {B.4}Conversation Metadata Logging Model}{27}
-\contentsline {chapter}{\numberline {C}TA Front-End Implementation}{28}
-\contentsline {section}{\numberline {C.1}Homepage}{28}
-\contentsline {section}{\numberline {C.2}About Page}{31}
-\contentsline {section}{\numberline {C.3}Chatroom}{33}
-\contentsline {chapter}{Bibliography}{36}
+\contentsline {section}{\numberline {4.2}UCB1-AKSB Algorithm Efficacy}{14}
+\contentsline {section}{\numberline {4.3}Individual User Analysis}{15}
+\contentsline {chapter}{\numberline {5}Conclusions}{18}
+\contentsline {section}{\numberline {5.1}Summary of Findings}{18}
+\contentsline {section}{\numberline {5.2}Potential Applications}{18}
+\contentsline {section}{\numberline {5.3}Further Improvements}{18}
+\contentsline {chapter}{Appendices}{19}
+\contentsline {chapter}{\numberline {A}Data Analysis Code}{20}
+\contentsline {chapter}{\numberline {B}Conversation Starters}{21}
+\contentsline {chapter}{\numberline {C}TA Back-End Implementation}{24}
+\contentsline {section}{\numberline {C.1}Princeton IP-Address Filtering Functionality}{24}
+\contentsline {section}{\numberline {C.2}User Matching Functionality}{25}
+\contentsline {section}{\numberline {C.3}Web Server Functionality}{29}
+\contentsline {section}{\numberline {C.4}Conversation Metadata Logging Model}{31}
+\contentsline {chapter}{\numberline {D}TA Front-End Implementation}{32}
+\contentsline {section}{\numberline {D.1}Homepage}{32}
+\contentsline {section}{\numberline {D.2}About Page}{35}
+\contentsline {section}{\numberline {D.3}Chatroom}{37}
+\contentsline {chapter}{Bibliography}{40}

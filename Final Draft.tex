@@ -12,6 +12,7 @@
 % Import graphics package
 \usepackage{graphicx}
 \DeclareGraphicsExtensions{.pdf,.png,.jpg}
+\usepackage{float}
 
 % Import math package
 \usepackage{amsmath}
@@ -127,20 +128,23 @@ Before explaining the algorithm, it will be useful to introduce notation. Let th
 
 The UCB1-AKSB algorithm proceeds as follows: For each pair of users $u,v\in{U}$, we pick the conversation starter $x$ such that
 
-$$ x = \underset{x \in{(X^u \cup X^v)}^{\mathsf{c}}}{\argmax{}} f(x)$$ where
+\begin{equation}
+\label{eq:UCBMain}
+x = \underset{x \in{(X^u \cup X^v)}^{\mathsf{c}}}{\argmax{}} f(x)
+\end{equation}
+where
 
- \begin{displaymath}
+\begin{equation}
+\label{eq:UCBMetric}
    f(x) = \left\{
      \begin{array}{lr}
        \bar{x}+ \sqrt{\frac{2\ln{n}}{n_x}} & : n_x > 0\\
        \infty & : n_x = 0
      \end{array}
    \right.
-\end{displaymath} 
+\end{equation}
 
-$$$$
-
-In this equation $n_x$ is the number of times that conversation starter $x$ has been played and $n$ is the total number of conversation starters that have been shown. Note that ties are broken arbitrarily.
+In equation \eqref{eq:UCBMetric}, $n_x$ is the number of times that conversation starter $x$ has been played and $n$ is the total number of conversation starters that have been shown. Note that ties are broken arbitrarily.
 
 \section{Tigers Anonymous Data Collection Methods}
 
@@ -279,37 +283,34 @@ var UCB1 = function(data, callback) {
 
 \section{Regret Analysis}
 
-Recall from Chapter \ref{LiteratureReview} that the cumulative regret of the UCB1 algorithm is proportional to $log(n)$, where $n$ is the number of plays. Thus, we should expect the UCB1-AKSB algorithm to also provide a cumulative regret function that looks approximately logarithmic in the number of plays. The regret of the UCB1-AKSB algorithm is shown below in \ref{fig:TADe-AnonymizationRegret}. 
+Recall from Chapter \ref{LiteratureReview} that the cumulative regret of the UCB1 algorithm is proportional to log($n$), where $n$ is the number of plays. Thus, we should expect the UCB1-AKSB algorithm to also provide a cumulative regret function that looks approximately logarithmic in the number of plays. This regret, $R(n)$, was calculated using equation \eqref{eq:RegretComputation} below under the assumptions that the long-term average de-anonymization proportion was optimal and that each conversation starter had an I.I.D distribution of de-anonymizations (i.e. successes). 
 
-\begin{figure}[h]
+\begin{equation}
+\label{eq:RegretComputation}
+R(n) = \mu^{*}n - \sum_{x \in X}{W_n(x)}
+\end{equation}
+
+In equation \eqref{eq:RegretComputation}, $R(n)$ is the cumulative regret after the UCB1-AKSB algorithm has run $n$ times, $\mu^{*}$ is the long-term average proportion of conversation de-anonymizations, and $W_n(x)$ is the number of de-anonymizations that resulted after arm $x \in X$ was played. The result, $R(n)$, of the UCB1-AKSB algorithm is shown below in \ref{fig:TADe-AnonymizationRegret}.
+
+\begin{figure}[H]
 \centering
 \includegraphics[trim= 0mm 0mm 0mm 0mm, clip, scale=0.5]{./Pictures/TADe-AnonymizationRegret.jpg}
 \caption{TA De-Anonymization Regret Analysis}
 \label{fig:TADe-AnonymizationRegret}
 \end{figure}
 
-The regret looks approximately logarithmic for the second half of the dataset, but the first half of the data gives a steadily negative cumulative regret. This is most likely due to the fact that the distribution of Facebook de-anonymization was not I.I.D. Instead, there were probably different regimes in which people perceived Facebook de-anonymization differently. In the beginning,  people were more likely to de-anonymize a conversation simply because of the novelty of doing so. This is supported by looking at the cumulative Facebook de-anonymization percentage (see \ref{fig:TADe-AnonymizationCumulative}). In the beginning, the Facebook connect rate was almost double the long-term average. However, as users became more used to the idea of Facebook de-anonymization, the rate of de-anonymization drifted slowly back towards the long term average. The existence of multiple regimes explains the two different segments of the regret data. 
+The regret looks approximately logarithmic for the second half of the dataset, but the first half of the data gives a steadily negative cumulative regret. This is due to the fact that the I.I.D assumption of conversation de-anonymization is most-likely false. Instead, there were probably different regimes in which people perceived Facebook de-anonymization differently. This is most analogous to the Markovian bandits in \citet{bubeck12}, where each conversation starter (i.e. bandit arm) is associated with a Markov process with a discrete set of distributions.
+Because of the clear split in the data, it seems like there were two discrete distributions from which de-anonymizations were drawn. The first distribution occurred in the initial stages of TA's launch, where users were more likely to de-anonymize a conversation simply because of the novelty of doing so. This is supported by looking at the initial cumulative Facebook de-anonymization statistics (see \ref{fig:TADe-AnonymizationCumulative}), where the Facebook connect rate was almost double the long-term average. The second distribution most likely occurred as users became more used to the idea of Facebook de-anonymization, the rate of de-anonymization drifted slowly back towards the long term average (around the second half of the data set). The existence of multiple regimes explains the two polar opposite segments of regret data.
 
-ADDITIONALLY, DO THE SECOND HALF REGRET GRAPH HERE!!! FIXME
-
-\begin{figure}[h]
+\begin{figure}[H]
 \centering
 \includegraphics[trim= 0mm 0mm 0mm 0mm, clip, scale=0.5]{./Pictures/CumulativeTADe-Anonymization.jpg}
 \caption{TA Cumulative De-Anonymization Data}
 \label{fig:TADe-AnonymizationCumulative}
 \end{figure}
 
-\begin{itemize}
-\item Negative regret occurred because of the initial upsurge in Facebook connects when the site was originally adopted
-\item We see the Facebook de-anonymization percentage drift slowly back to the long term mean
-\item This regret was calculated by assuming that the long-term average was "optimal" and inferring the "optimal" number of Facebook de-anonymizations that was expected at each number of plays
-\item However, this is based on the assumption that the Facebook de-anonymization random variable is being drawn from an I.I.D distribution.
-\item I think it's not being drawn from an I.I.D distribution, which is why you see two different paths in the data, (0, 4500) and (4500, end).
-\item I think that the bandits algorithm started displaying the expected logarithmic cumulative regret after conversation index (4500)
-\item Deanonymization peaked in the beginning (probably the novelty of the site, but then converged to stable levels). This probably was due to the fact that initial de-anonymization would have happened no matter what
-\end{itemize}
-
-\begin{figure}[h]
+ADDITIONALLY, DO THE SECOND HALF REGRET GRAPH HERE!!! FIXME
+\begin{figure}[H]
 \centering
 \includegraphics[trim= 0mm 0mm 0mm 0mm, clip, scale=0.5]{./Pictures/TADe-AnonymizationRegret(SecondHalfofData).jpg}
 \caption{TA Cumulative De-Anonymization Data (For Second Half of Data Set)}
@@ -318,32 +319,50 @@ ADDITIONALLY, DO THE SECOND HALF REGRET GRAPH HERE!!! FIXME
 
 \section{UCB1-AKSB Algorithm Efficacy}
 
-The efficacy of the UCB1-AKSB algorithm will be assessed by testing the average value of $l$ and $p$ over time to see whether the optimized conversation starters cause people to chat longer and/or be more likely to opt for de-anonymization.
+Since the original goal of the UCB1-AKSB algorithm was to improve conversation quality (for which conversation de-anonymization served as a proxy), the efficacy of this algorithm will be assessed by the long-term proportion of conversation de-anonymization. FIXME DAILY GRAPH AND REFERENCE CUMULATIVE GRAPH 
 
-FIXME BLAH
-Other proxies for quality (such as participation rates and average conversation length, increased and approached their asymptotic values). It makes sense to use other proxies for quality as a benchmark for cumulative regret of the UCB1-AKSB algorithm, simply by making the assumption that the algorithm optimized for conversation quality.
+In addition to using conversation de-anonymization as a metric of success, it makes sense to use other proxies for conversation quality (such as participation rates and average conversation length), because they are more fine-grained than the binary variable of conversation de-anonymization. The plots are below. 
 
-\begin{figure}[h]
+\begin{figure}[H]
 \centering
 \includegraphics[trim= 0mm 0mm 0mm 0mm, clip, scale=0.5]{./Pictures/CumulativeTAParticipation.jpg}
-\caption{TA Cumulative Participation Data}
+\caption{TA Cumulative Participation Rate}
 \label{fig:TAParticipationCumulative}
 \end{figure}
 
-\begin{figure}[h]
+\begin{figure}[H]
 \centering
 \includegraphics[trim= 0mm 0mm 0mm 0mm, clip, scale=0.5]{./Pictures/CumulativeTAConversationLength(MessagesExchanged).jpg}
-\caption{TA Cumulative Participation Data}
+\caption{TA Cumulative Average Conversation Length}
 \label{fig:TAMessagesExchangedCumulative}
 \end{figure}
 
-\begin{itemize}
-\item
-\item
-\item
-\end{itemize}
+INTERPRET GRAPHS
 
 \section{Individual User Analysis}
+
+Another way of examining the data is to look at how individual users interacted with the site over the course of their site use.
+
+\begin{figure}[H]
+\centering
+\includegraphics[trim= 0mm 0mm 0mm 0mm, clip, scale=0.5]{./Pictures/PerUserFBConnect.jpg}
+\caption{Per User De-Anonymization Proportion}
+\label{fig:PerUserFBConnect}
+\end{figure}
+
+\begin{figure}[H]
+\centering
+\includegraphics[trim= 0mm 0mm 0mm 0mm, clip, scale=0.5]{./Pictures/PerUserMessagesSent.jpg}
+\caption{Per User Messages Sent}
+\label{fig:PerUserMessagesSent}
+\end{figure}
+
+\begin{figure}[H]
+\centering
+\includegraphics[trim= 0mm 0mm 0mm 0mm, clip, scale=0.5]{./Pictures/PerUserParticipation.jpg}
+\caption{Per User Participation}
+\label{fig:PerUserParticipation}
+\end{figure}
 
 \chapter{Conclusions}
 
@@ -362,12 +381,17 @@ The methodology of this study could be improved by increasing the user space
 
 For a fixed arm space (i.e. Tigers Anonymous conversation starters), a possible improvement to the UCB1-AKSB algorithm would be to have a moving time-window, so that both users would be guaranteed to see a conversation starter that they haven't seen in at least 5 uses or 5 days (i.e. number of uses or a fixed time length)
 
-
-
-Analysis of data gathered and conclusions drawn go here.
-
 %Appendices
 \begin{appendices}
+\chapter{Data Analysis Code}
+
+\lstset{language=Python}
+\begin{lstlisting}
+
+FIXME: ADD CODE HERE
+
+\end{lstlisting}
+
 \chapter{Conversation Starters}
 \label{AppendixConversationStarters}
 
