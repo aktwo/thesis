@@ -197,8 +197,10 @@ def do_per_user_analysis(data, user1_metric, user2_metric, metric_title, slow_mo
 # Load the JSON data
 data = json.load(open('ta_data.json', 'r'))
 second_half_data = json.load(open('second_half_ta_data.json', 'r'))
+first_half_data = json.load(open('first_half_ta_data.json', 'r'))
 
 # Do cumulative regret analysis on truncated data
+do_cumulative_regret_analysis(first_half_data, fb_match_occurred, 'TA De-Anonymization Regret (First Half of Data)')
 do_cumulative_regret_analysis(second_half_data, fb_match_occurred, 'TA De-Anonymization Regret (Second Half of Data)')
 
 # Do win-ratio analysis
