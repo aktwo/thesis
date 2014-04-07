@@ -175,7 +175,7 @@ def do_cumulative_regret_analysis(data, metric, metric_label, y_label='Cumulativ
   cumulative_regret_data = cumulative_regret(data, metric)
   save_list_plot(cumulative_regret_data, metric_label, ylabel=y_label)
 
-def do_per_user_analysis(data, user1_metric, user2_metric, metric_title, slow_moving_average_window, fast_moving_average_window):
+def do_per_user_analysis(data, user1_metric, user2_metric, metric_title, slow_moving_average_window=40, fast_moving_average_window=20, legend_location="upper left"):
   user_data = generate_user_data(data, user1_metric, user2_metric)
   slow_moving_average = get_moving_average(user_data, slow_moving_average_window)
   fast_moving_average = get_moving_average(user_data, fast_moving_average_window)
@@ -186,7 +186,7 @@ def do_per_user_analysis(data, user1_metric, user2_metric, metric_title, slow_mo
   plt.plot(user_data, label=metric_title)
   plt.plot(slow_moving_average, 'r--', label=('Slow-Moving Average (' + str(slow_moving_average_window) + ')'))
   plt.plot(fast_moving_average, 'g--', label=('Fast-Moving Average (' + str(fast_moving_average_window) + ')'))
-  plt.legend()
+  plt.legend(loc=legend_location)
   fig.savefig('./Pictures/' + metric_title.replace(' ', '') +'.jpg')
 
 
@@ -202,6 +202,11 @@ first_half_data = json.load(open('first_half_ta_data.json', 'r'))
 # Do cumulative regret analysis on truncated data
 do_cumulative_regret_analysis(first_half_data, fb_match_occurred, 'TA De-Anonymization Regret (First Half of Data)')
 do_cumulative_regret_analysis(second_half_data, fb_match_occurred, 'TA De-Anonymization Regret (Second Half of Data)')
+do_cumulative_regret_analysis(first_half_data, no_immediate_disconnect_occurred, 'TA Participation Rate Regret (First Half of Data)')
+do_cumulative_regret_analysis(second_half_data, no_immediate_disconnect_occurred, 'TA Participation Rate Regret (Second Half of Data)')
+do_cumulative_regret_analysis(first_half_data, total_user_messages_sent, 'TA Messages Sent Regret (First Half of Data)')
+do_cumulative_regret_analysis(second_half_data, total_user_messages_sent, 'TA Messages Sent Regret (Second Half of Data)')
+
 
 # Do win-ratio analysis
 do_win_ratio_analysis(data, fb_match_occurred, 'TA De-Anonymization', 'Proportion of De-Anonymized Conversations')
@@ -214,7 +219,7 @@ do_cumulative_regret_analysis(data, no_immediate_disconnect_occurred, 'TA Partic
 do_cumulative_regret_analysis(data, total_user_messages_sent, 'TA Messages Sent Regret')
 
 # Do per-user analysis
-do_per_user_analysis(data, first_user_clicked, second_user_clicked, 'Per User FB Connect', 40, 20)
-do_per_user_analysis(data, first_user_participated, second_user_participated, 'Per User Participation', 40, 20)
-do_per_user_analysis(data, first_user_messages_sent, second_user_messages_sent, 'Per User Messages Sent', 40, 20)
+do_per_user_analysis(data, first_user_clicked, second_user_clicked, 'Per User De-Anonymization')
+do_per_user_analysis(data, first_user_participated, second_user_participated, 'Per User Participation', legend_location="lower left")
+do_per_user_analysis(data, first_user_messages_sent, second_user_messages_sent, 'Per User Messages Sent')
 
