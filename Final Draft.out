@@ -12,19 +12,17 @@
 \BOOKMARK [1][-]{section.4.2}{UCB1-AKSB Effectiveness}{chapter.4}% 12
 \BOOKMARK [1][-]{section.4.3}{Individual User Analysis}{chapter.4}% 13
 \BOOKMARK [0][-]{chapter.5}{Conclusions}{}% 14
-\BOOKMARK [1][-]{section.5.1}{Summary of Findings}{chapter.5}% 15
-\BOOKMARK [1][-]{section.5.2}{Potential Applications}{chapter.5}% 16
-\BOOKMARK [1][-]{section.5.3}{Further Improvements}{chapter.5}% 17
-\BOOKMARK [0][-]{section*.2}{Appendices}{}% 18
-\BOOKMARK [0][-]{Appendix.a.A}{Data Analysis Code}{}% 19
-\BOOKMARK [0][-]{Appendix.a.B}{Conversation Starters}{}% 20
-\BOOKMARK [0][-]{Appendix.a.C}{TA Back-End Implementation}{}% 21
-\BOOKMARK [1][-]{section.a.C.1}{Princeton IP-Address Filtering Functionality}{Appendix.a.C}% 22
-\BOOKMARK [1][-]{section.a.C.2}{User Matching Functionality}{Appendix.a.C}% 23
-\BOOKMARK [1][-]{section.a.C.3}{Web Server Functionality}{Appendix.a.C}% 24
-\BOOKMARK [1][-]{section.a.C.4}{Conversation Metadata Logging Model}{Appendix.a.C}% 25
-\BOOKMARK [0][-]{Appendix.a.D}{TA Front-End Implementation}{}% 26
-\BOOKMARK [1][-]{section.a.D.1}{Homepage}{Appendix.a.D}% 27
-\BOOKMARK [1][-]{section.a.D.2}{About Page}{Appendix.a.D}% 28
-\BOOKMARK [1][-]{section.a.D.3}{Chatroom}{Appendix.a.D}% 29
-\BOOKMARK [0][-]{lstnumber.-11.123}{Bibliography}{}% 30
+\BOOKMARK [1][-]{section.5.1}{Future Improvements}{chapter.5}% 15
+\BOOKMARK [0][-]{section*.2}{Appendices}{}% 16
+\BOOKMARK [0][-]{Appendix.a.A}{Data Analysis Code}{}% 17
+\BOOKMARK [0][-]{Appendix.a.B}{Conversation Starters}{}% 18
+\BOOKMARK [0][-]{Appendix.a.C}{TA Back-End Implementation}{}% 19
+\BOOKMARK [1][-]{section.a.C.1}{Princeton IP-Address Filtering Functionality}{Appendix.a.C}% 20
+\BOOKMARK [1][-]{section.a.C.2}{User Matching Functionality}{Appendix.a.C}% 21
+\BOOKMARK [1][-]{section.a.C.3}{Web Server Functionality}{Appendix.a.C}% 22
+\BOOKMARK [1][-]{section.a.C.4}{Conversation Metadata Logging Model}{Appendix.a.C}% 23
+\BOOKMARK [0][-]{Appendix.a.D}{TA Front-End Implementation}{}% 24
+\BOOKMARK [1][-]{section.a.D.1}{Homepage}{Appendix.a.D}% 25
+\BOOKMARK [1][-]{section.a.D.2}{About Page}{Appendix.a.D}% 26
+\BOOKMARK [1][-]{section.a.D.3}{Chatroom}{Appendix.a.D}% 27
+\BOOKMARK [0][-]{lstnumber.-11.123}{Bibliography}{}% 28

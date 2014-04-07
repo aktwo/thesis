@@ -11,20 +11,18 @@
 \contentsline {section}{\numberline {4.1}Regret Analysis}{17}{section.4.1}
 \contentsline {section}{\numberline {4.2}UCB1-AKSB Effectiveness}{19}{section.4.2}
 \contentsline {section}{\numberline {4.3}Individual User Analysis}{22}{section.4.3}
-\contentsline {chapter}{\numberline {5}Conclusions}{25}{chapter.5}
-\contentsline {section}{\numberline {5.1}Summary of Findings}{25}{section.5.1}
-\contentsline {section}{\numberline {5.2}Potential Applications}{25}{section.5.2}
-\contentsline {section}{\numberline {5.3}Further Improvements}{25}{section.5.3}
-\contentsline {chapter}{Appendices}{26}{section*.2}
-\contentsline {chapter}{\numberline {A}Data Analysis Code}{27}{Appendix.a.A}
-\contentsline {chapter}{\numberline {B}Conversation Starters}{28}{Appendix.a.B}
-\contentsline {chapter}{\numberline {C}TA Back-End Implementation}{33}{Appendix.a.C}
-\contentsline {section}{\numberline {C.1}Princeton IP-Address Filtering Functionality}{33}{section.a.C.1}
-\contentsline {section}{\numberline {C.2}User Matching Functionality}{34}{section.a.C.2}
-\contentsline {section}{\numberline {C.3}Web Server Functionality}{41}{section.a.C.3}
-\contentsline {section}{\numberline {C.4}Conversation Metadata Logging Model}{44}{section.a.C.4}
-\contentsline {chapter}{\numberline {D}TA Front-End Implementation}{45}{Appendix.a.D}
-\contentsline {section}{\numberline {D.1}Homepage}{45}{section.a.D.1}
-\contentsline {section}{\numberline {D.2}About Page}{49}{section.a.D.2}
-\contentsline {section}{\numberline {D.3}Chatroom}{52}{section.a.D.3}
-\contentsline {chapter}{Bibliography}{58}{lstnumber.-11.123}
+\contentsline {chapter}{\numberline {5}Conclusions}{26}{chapter.5}
+\contentsline {section}{\numberline {5.1}Future Improvements}{27}{section.5.1}
+\contentsline {chapter}{Appendices}{28}{section*.2}
+\contentsline {chapter}{\numberline {A}Data Analysis Code}{29}{Appendix.a.A}
+\contentsline {chapter}{\numberline {B}Conversation Starters}{30}{Appendix.a.B}
+\contentsline {chapter}{\numberline {C}TA Back-End Implementation}{35}{Appendix.a.C}
+\contentsline {section}{\numberline {C.1}Princeton IP-Address Filtering Functionality}{35}{section.a.C.1}
+\contentsline {section}{\numberline {C.2}User Matching Functionality}{36}{section.a.C.2}
+\contentsline {section}{\numberline {C.3}Web Server Functionality}{43}{section.a.C.3}
+\contentsline {section}{\numberline {C.4}Conversation Metadata Logging Model}{46}{section.a.C.4}
+\contentsline {chapter}{\numberline {D}TA Front-End Implementation}{47}{Appendix.a.D}
+\contentsline {section}{\numberline {D.1}Homepage}{47}{section.a.D.1}
+\contentsline {section}{\numberline {D.2}About Page}{51}{section.a.D.2}
+\contentsline {section}{\numberline {D.3}Chatroom}{54}{section.a.D.3}
+\contentsline {chapter}{Bibliography}{60}{lstnumber.-11.123}
