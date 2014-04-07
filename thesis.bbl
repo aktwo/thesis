@@ -1,0 +1,27 @@
+\begin{thebibliography}{3}
+\providecommand{\natexlab}[1]{#1}
+\providecommand{\url}[1]{\texttt{#1}}
+\expandafter\ifx\csname urlstyle\endcsname\relax
+  \providecommand{\doi}[1]{doi: #1}\else
+  \providecommand{\doi}{doi: \begingroup \urlstyle{rm}\Url}\fi
+
+\bibitem[Auer et~al.(2002)Auer, Cesa-Bianchi, and Fischer]{auer02}
+Peter Auer, Nicol\'{o} Cesa-Bianchi, and Paul Fischer.
+\newblock Finite-time analysis of the multiarmed bandit problem.
+\newblock \emph{Machine Learning}, 47:\penalty0 235--256, 2002.
+
+\bibitem[Bubeck and Cesa-Bianchi(2012)]{bubeck12}
+S\'{e}bastien Bubeck and Nicol\'{o} Cesa-Bianchi.
+\newblock Regret analysis of stochastic and nonstochastic multi-armed bandit
+  problems.
+\newblock \emph{Foundations and Trends in Machine Learning}, 5\penalty0
+  (1):\penalty0 1--122, 2012.
+
+\bibitem[Li et~al.(2010)Li, Chu, Langford, and Schapire]{chu10}
+Lihong Li, Wei Chu, John Langford, and Robert~E. Schapire.
+\newblock A contextual-bandit approach to personalized news article
+  recommendation.
+\newblock \emph{Proceedings of the 19th International Conference on World Wide
+  Web}, pages 661--670, 2010.
+
+\end{thebibliography}

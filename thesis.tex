@@ -1,0 +1,89 @@
+\documentclass[12pt,lot,lof]{puthesis_undergraduate}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{latexsym}
+\usepackage{graphicx}
+\usepackage{setspace}
+\usepackage[round, longnamesfirst]{natbib} % for nice bibliography
+
+% Import and initialize code display packages
+\usepackage{listings}
+\lstset{frame=tb,
+  language=Java,
+  aboveskip=3mm,
+  belowskip=3mm,
+  showstringspaces=false,
+  columns=flexible,
+  basicstyle={\small\ttfamily},
+  numbers=none,
+  breaklines=true,
+  breakatwhitespace=true
+  tabsize=2
+}
+
+\input{newcommands}
+
+%Do not un-comment the next two lines
+%Included for Gather Purpose only in WinEdt (ignore for other editors):
+%input "./Bibliography/refs.bib"
+
+\title{Chatty Stochastic Multi-Armed Bandits}
+\submitted{June 2014}  %graduation date
+\author{Akshay Kumar}
+\advisor{S\'{e}bastien Bubeck} %
+\dedication{To Mom, Dad, Neha and Isabella}
+
+\abstract{
+\input{./Chapters/abstract}
+}
+
+\acknowledgements{
+\input{./Chapters/acknow}
+}
+
+\begin{document}
+\chapter{Introduction}
+\label{ch:Introduction} 
+\input{./Chapters/intro}
+
+\chapter{Literature Review}
+\label{ch:LiteratureReview}
+\input{./Chapters/litreview}
+
+\chapter{Methods}
+\label{ch:Methods}
+\input{./Chapters/methods}
+
+\chapter{Data Analysis}
+\label{ch:DataAnalysis}
+\input{./Chapters/data_analysis}
+
+\chapter{Conclusion}
+\label{ch:Conclusion}
+\input{./Chapters/conclusion}
+
+\appendix
+\chapter{Data Analysis Code}
+\label{app:DataAnalysisCode}
+\input{./Chapters/data_analysis_code}
+
+\appendix
+\chapter{Conversation Starters}
+\label{app:ConversationStarters}
+\input{./Chapters/conversation_starters}
+
+\appendix
+\chapter{TA Back-End Implementation}
+\label{app:TABackendImplementation}
+\input{./Chapters/TA_backend}
+
+\appendix
+\chapter{TA Front-End Implementation}
+\label{app:TAFrontendImplementation}
+\input{./Chapters/TA_frontend}
+
+\bibliographystyle{plainnat}
+\bibliography{./Bibliography/refs}
+\end{document}

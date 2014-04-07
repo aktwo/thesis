@@ -1,0 +1,156 @@
+\section{UCB1-AKSB Algorithm}
+
+The multi-armed bandit algorithm used by Tigers Anonymous is a novel variant of the well-known UCB1 algorithm \citep{auer02}. The new algorithm is outlined below:
+
+Before explaining the algorithm, it will be useful to introduce notation. Let the users be represented as the set $U$ and the bandit arms as the set $X$. Let the set of arms that have already been played for user $u\in{U}$ be represented by the set $X^u \subset{X}$. The goal of the UCB1-AKSB algorithm is to pick some arm $x\in{X}$ given the pair of users $u,v \in{U}$. In this specific application, the goal is to pick the optimal conversation starter $x\in{X}$.
+
+The UCB1-AKSB algorithm proceeds as follows: For each pair of users $u,v\in{U}$, we pick the conversation starter $x$ such that
+
+\begin{equation}
+\label{eq:UCBMain}
+x = \underset{x \in{(X^u \cup X^v)}^{\mathsf{c}}}{\arg\max{}} f(x)
+\end{equation}
+where
+
+\begin{equation}
+\label{eq:UCBMetric}
+   f(x) = \left\{
+     \begin{array}{lr}
+       \bar{x}+ \sqrt{\frac{2\ln{n}}{n_x}} & : n_x > 0\\
+       \infty & : n_x = 0
+     \end{array}
+   \right.
+\end{equation}
+
+In \ref{eq:UCBMetric}, $n_x$ is the number of times that conversation starter $x$ has been played and $n$ is the total number of conversation starters that have been shown. Note that ties are broken arbitrarily.
+
+\section{Tigers Anonymous Data Collection Methods}
+
+The complete data-collection method used for this thesis is outlined below: 
+
+\begin{enumerate}
+\item Two users visit www.tigersanonymous.com/chat from a Princeton IP address.
+\item The users are directed to the chat server and are matched on a first-come, first-served basis.
+\item A conversation starter is selected based on the UCB1-AKSB algorithm described above.
+\item After either of the users disconnects, a 10-tuple representing the chat session is logged in a database (see Data Format section below for more details).
+\end{enumerate}
+
+\section{Tigers Anonymous Data Format}
+
+The data that will be collected can be represented by the vector of 10-tuples of the form: $$(x_i, y_i, t0_i, t1_i, q_i, b_i, c1_i, c2_i, m1_i, m2_i)$$ where $x_i$ and $y_i$ represent the pseudonymous user ids of the two participants in the chat, $t0_i$ and $t1_i$ represent the start and end times of the conversation, $q_i$ represents the conversation starter, $b_i \in {(0, 1)}$ represents whether the drop-down menu was displayed (i.e. both chat participants exchanged more than a predefined number of messages), $c1_i, c2_i \in{(0, 1)}$ represent whether users $x_i$ and $y_i$ opted to de-anonymize the conversation respectively and $m1_i, m2_i \in{(0,1)}$ represent the number of messages that user $x_i$ and $y_i$ sent respectively. The subscript $i$ is unique for each conversation. 
+
+A sample of this data is shown below: 
+
+\begin{lstlisting}[language=java]
+[{ "userID1" : "9a675a6f581fd1dfa0b982826e75b4f5", "userID2" : "a8262bb13e641e2bf5dcb3985b2061be", "question" : "Do you believe in love at first sight?", "startTime" : 1390873110621, "endTime" : 1390873162944, "buttonDisplayed" : false, "user1Clicked" : false, "user2Clicked" : false, "user1MessagesSent" : 1, "user2MessagesSent" : 0, "_id" : "52e70a4ac43b6d020079e52d", "__v" : 0 },
+{ "userID1" : "a8262bb13e641e2bf5dcb3985b2061be", "userID2" : "9a675a6f581fd1dfa0b982826e75b4f5", "question" : "Do you believe in soul mates?", "startTime" : 1390873219878, "endTime" : 1390873263469, "buttonDisplayed" : false, "user1Clicked" : false, "user2Clicked" : false, "user1MessagesSent" : 1, "user2MessagesSent" : 2, "_id" : "52e70aafc43b6d020079e52e", "__v" : 0 },
+{ "userID1" : "27ac4f2d7e40b5249c2edcba19e21fb8", "userID2" : "370f85e443ad3ee24a879b1ce5a2b54b", "question" : "What is one thing you miss about being a kid?", "startTime" : 1390876198530, "endTime" : 1390876307059, "buttonDisplayed" : false, "user1Clicked" : false, "user2Clicked" : false, "user1MessagesSent" : 1, "user2MessagesSent" : 0, "_id" : "52e71693c43b6d020079e52f", "__v" : 0 },
+{ "userID1" : "370f85e443ad3ee24a879b1ce5a2b54b", "userID2" : "6e0fe76fca80cf2920bd5fc7717cf6dd", "question" : "What's one thing that you learned this week?", "startTime" : 1390881063228, "endTime" : 1390882681992, "buttonDisplayed" : true, "user1Clicked" : true, "user2Clicked" : true, "user1MessagesSent" : 33, "user2MessagesSent" : 37, "_id" : "52e72f79c43b6d020079e531", "__v" : 0 },
+...]
+\end{lstlisting}
+
+\section{Tigers Anonymous UCB1-AKSB Implementation}
+
+This is the code on the Tigers Anonymous server that implements the UCB1-AKSB algorithm.
+
+\begin{lstlisting}
+var questions = require('./questions').list;
+
+// Used in lieu of positive and negative infinity
+var largePositiveNumber = 1000000000;
+var largeNegativeNumber = -1000000000;
+
+// UCB1 function to pick opening question
+exports.getQuestion = function(collection, user1, user2, callback) {
+  var questionAsked = {
+    $or: [
+      {$eq: ["$userID1", user1.id]}, 
+      {$eq: ["$userID2", user1.id]}, 
+      {$eq: ["$userID1", user2.id]}, 
+      {$eq: ["$userID2", user2.id]}
+    ]
+  };
+
+  var outputFormat = {
+    _id: "$question",
+    plays: {$sum: 1},
+    wins: {$sum: {$cond: [{$and: ["$user1Clicked", "$user2Clicked"]}, 1, 0]}},
+    timesShown: {$sum: {$cond: [questionAsked, 1, 0]}}
+  };
+
+  // Aggregate conversation data and call UCB callback
+  collection.aggregate().group(outputFormat).exec(function(err, data) {
+    if (err) console.log(err);
+    UCB1(data, callback);
+  });
+}
+
+// Helper function to get a random question
+var getRandomQuestion = function() {
+  var randomIndex = Math.floor(Math.random() * questions.length);
+  return questions[randomIndex];
+};
+
+// Helper function to invoke callback on the data item with the max UCB value
+var UCB1 = function(data, callback) {
+  var finalData = {};
+
+  // If there's no data, return a random question
+  if (data.length === 0) {
+    callback(getRandomQuestion());
+    return;
+  } else {
+    // Otherwise, get all the available data for the questions and run UCB
+    var questionStats = {};
+    var totalPlays = 0;
+
+    // For each entry in data, sum the total number of plays and
+    // populate the questionStats table with the corresponding question
+    for (var i = 0; i < data.length; i++) {
+      var entry = data[i];
+      questionStats[entry._id] = {
+        plays: entry.plays,
+        wins: entry.wins,
+        shown: (entry.timesShown > 0 ? true : false)
+      };
+      totalPlays += entry.plays;
+    }
+
+    for (var i = 0; i < questions.length; i++) {
+      var question = questions[i];
+      // If there's no data for this question, then it hasn't been
+      // displayed yet, so assign it an arbitrarily large UCB value
+      if (!questionStats[question]) {
+        finalData[question] = largePositiveNumber;
+      } else if (questionStats[question].shown) {
+        continue;
+      } else {
+        // If the question hasn't been shown and there's data for it,
+        // compute the UCB value
+        var probabilityEstimate =
+          questionStats[question].wins / questionStats[question].plays;
+        var UCBoundEstimate =
+          Math.sqrt(2 * Math.log(totalPlays / questionStats[question].plays));
+        finalData[question] = probabilityEstimate + UCBoundEstimate;
+      }
+    }
+
+    if (Object.keys(finalData).length > 0) {
+      // Find question with max UCB value
+      var bestValue = largeNegativeNumber;
+      var bestMatch = null;
+      for (var question in finalData) {
+        var currentValue = finalData[question];
+        if (currentValue >= bestValue) {
+          bestMatch = question;
+          bestValue = currentValue;
+        }
+      }
+      callback(bestMatch);
+    } else {
+      callback(getRandomQuestion());
+    }
+  }
+};
+
+\end{lstlisting}
