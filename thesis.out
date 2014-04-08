@@ -1,0 +1,29 @@
+\BOOKMARK [1][-]{Doc-Start}{Abstract}{}% 1
+\BOOKMARK [1][-]{Doc-Start}{Acknowledgements}{}% 2
+\BOOKMARK [1][-]{chapter*.1}{List of Figures}{}% 3
+\BOOKMARK [0][-]{chapter.1}{Introduction}{}% 4
+\BOOKMARK [1][-]{section.1.1}{What is Tigers Anonymous?}{chapter.1}% 5
+\BOOKMARK [1][-]{section.1.2}{Why Multi-Armed Bandits?}{chapter.1}% 6
+\BOOKMARK [0][-]{chapter.2}{Literature Review}{}% 7
+\BOOKMARK [0][-]{chapter.3}{Methods}{}% 8
+\BOOKMARK [1][-]{section.3.1}{UCB1-AKSB Algorithm}{chapter.3}% 9
+\BOOKMARK [1][-]{section.3.2}{Tigers Anonymous Data Collection Methods}{chapter.3}% 10
+\BOOKMARK [1][-]{section.3.3}{Tigers Anonymous Data Format}{chapter.3}% 11
+\BOOKMARK [1][-]{section.3.4}{Tigers Anonymous UCB1-AKSB Implementation}{chapter.3}% 12
+\BOOKMARK [0][-]{chapter.4}{Results}{}% 13
+\BOOKMARK [1][-]{section.4.1}{Regret Analysis}{chapter.4}% 14
+\BOOKMARK [1][-]{section.4.2}{UCB1-AKSB Effectiveness}{chapter.4}% 15
+\BOOKMARK [1][-]{section.4.3}{Individual User Analysis}{chapter.4}% 16
+\BOOKMARK [0][-]{chapter.5}{Conclusion}{}% 17
+\BOOKMARK [1][-]{section.5.1}{Future Improvements}{chapter.5}% 18
+\BOOKMARK [0][-]{appendix.A}{Data Analysis Code}{}% 19
+\BOOKMARK [0][-]{appendix.B}{Conversation Starters}{}% 20
+\BOOKMARK [0][-]{appendix.C}{TA Back-End Implementation}{}% 21
+\BOOKMARK [1][-]{section.C.1}{Princeton IP-Address Filtering Functionality}{appendix.C}% 22
+\BOOKMARK [1][-]{section.C.2}{User Matching Functionality}{appendix.C}% 23
+\BOOKMARK [1][-]{section.C.3}{Web Server Functionality}{appendix.C}% 24
+\BOOKMARK [1][-]{section.C.4}{Conversation Metadata Logging Model}{appendix.C}% 25
+\BOOKMARK [0][-]{appendix.D}{TA Front-End Implementation}{}% 26
+\BOOKMARK [1][-]{section.D.1}{Homepage}{appendix.D}% 27
+\BOOKMARK [1][-]{section.D.2}{About Page}{appendix.D}% 28
+\BOOKMARK [1][-]{section.D.3}{Chatroom}{appendix.D}% 29

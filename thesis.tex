@@ -4,12 +4,24 @@
 \usepackage{amsmath}
 \usepackage{amsthm}
 \usepackage{latexsym}
+\usepackage{color}
 \usepackage{graphicx}
+\DeclareGraphicsExtensions{.pdf,.png,.jpg}
+\usepackage{float}
 \usepackage{setspace}
 \usepackage[round, longnamesfirst]{natbib} % for nice bibliography
 
+% References package
+\usepackage{hyperref}
+\def\sectionautorefname{Section}
+\def\chapterautorefname{Chapter}
+
 % Import and initialize code display packages
 \usepackage{listings}
+\usepackage{color}
+\definecolor{dkgreen}{rgb}{0,0.6,0}
+\definecolor{gray}{rgb}{0.5,0.5,0.5}
+\definecolor{mauve}{rgb}{0.58,0,0.82}
 \lstset{frame=tb,
   language=Java,
   aboveskip=3mm,
@@ -18,6 +30,10 @@
   columns=flexible,
   basicstyle={\small\ttfamily},
   numbers=none,
+  numberstyle=\tiny\color{gray},
+  keywordstyle=\color{mauve},
+  commentstyle=\color{dkgreen},
+  stringstyle=\color{blue},
   breaklines=true,
   breakatwhitespace=true
   tabsize=2
@@ -43,7 +59,11 @@
 \input{./Chapters/acknow}
 }
 
+\let\savedbegincmd\begincmd
+\let\begincmd\relax
 \begin{document}
+\savedbegincmd
+
 \chapter{Introduction}
 \label{ch:Introduction} 
 \input{./Chapters/intro}
@@ -56,7 +76,7 @@
 \label{ch:Methods}
 \input{./Chapters/methods}
 
-\chapter{Data Analysis}
+\chapter{Results}
 \label{ch:DataAnalysis}
 \input{./Chapters/data_analysis}
 
@@ -69,17 +89,14 @@
 \label{app:DataAnalysisCode}
 \input{./Chapters/data_analysis_code}
 
-\appendix
 \chapter{Conversation Starters}
 \label{app:ConversationStarters}
 \input{./Chapters/conversation_starters}
 
-\appendix
 \chapter{TA Back-End Implementation}
 \label{app:TABackendImplementation}
 \input{./Chapters/TA_backend}
 
-\appendix
 \chapter{TA Front-End Implementation}
 \label{app:TAFrontendImplementation}
 \input{./Chapters/TA_frontend}

@@ -1,10 +1,16 @@
-The purpose of this thesis was to test a new, weakly context-dependent multi-armed bandit algorithm that not only balances exploration and exploitation, but also prioritizes novelty to each end-user of the recommendation algorithm. This new algorithm takes advantage of data from all other users, which allows it to scale well BLAH. 
+The purpose of this thesis was to test a new, weakly context-dependent multi-armed bandit algorithm that not only balances exploration and exploitation, but also BLAH. This new algorithm takes advantage of data from all other users, which allows it to scale well BLAH. 
 
 In order to test this new algorithm (UCB1-AKSB), I implemented an anonymous chatroom that I helped build and set it to optimize for maximizing conversation de-anonymizations. After collecting and analyzing conversation and user data, we can draw the following conclusions about the UCB1-AKSB algorithm. 
 
-First, it seems that the algorithm improved some conversation quality metrics but not the metric for which it was calibrated. This is probably due to the fact that the success metric (conversation de-anonymization) was not only dependent on conversation quality (and in some cases might have been negatively correlated) and 2) a binary variable was not fine-grained enough for the size of the data-set that was available. When looking at other metrics of conversation quality, however, it does seem that the algorithm resulted in some noticeable improvement in conversation quality.
+First, the data gathered suggests that some of the key assumptions underpinning the UCB1-AKSB algorithm may not be valid. For example, the two different regimes in the cumulative regret analysis in \autoref{sec:RegretAnalysis} suggest that the distribution of payouts for each bandit arm were not I.I.D as assumed, but rather weakly Markovian. In addition, the process of conversation de-anonymization may have been more context-dependent than the modified UCB1 algorithm accounted for.
 
-Second, the regret analysis
+Second, it seems that the algorithm improved some conversation quality metrics but not the metric for which it was calibrated. This is probably due to the fact that the metric of conversation de-anonymization was not only dependent on conversation quality (and in some cases might have been completely independent or even negatively correlated) and a binary variable was not fine-grained enough for the size of the data-set that was available. When looking at other metrics of conversation quality, however, it does seem that the algorithm resulted in some noticeable improvement in conversation quality.
+
+Third, BLAH.
+
+In all, it seems that the UCB1-AKSB performed decently well given the violation of some of its fundamental assumptions and calibration on an imperfect metric. This leaves substantial room for further testing of this algorithm, and there are some clear recommendations that this thesis can make towards any future research. 
+
+First, any future research would benefit from a larger user base to avoid the problems of user saturation and stratification mentioned in \autoref{sec:IndividualUserAnalysis}. Second, when applied in a similar context to TA (i.e. improving conversation quality), the algorithm's performance would likely be improved 
 
 \section{Future Improvements}
 
@@ -14,7 +20,9 @@ Although the performance of the algorithm was mixed
 - IMPROVEMENTS
 	- Need more users, because problem of saturation mentioned above
 	- Calibrate on more fine-grained metrics, so that algorithm decisions won't be thrown off so easily
+      - Give a more finely tuned score based on a few criteria (i.e. give 0 for immediate disconnect, 0.3 for small convo, 0.7 for large convo and 1 for match)
 	- Sliding window to allow for fixed set of arms to be re-cycled optimally
+
 
 For a fixed arm space (i.e. Tigers Anonymous conversation starters), a possible improvement to the UCB1-AKSB algorithm would be to have a moving time-window, so that both users would be guaranteed to see a conversation starter that they haven't seen in at least 5 uses or 5 days (i.e. number of uses or a fixed time length)
 

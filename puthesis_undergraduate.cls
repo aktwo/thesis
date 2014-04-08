@@ -149,8 +149,6 @@ purpose of scholarly research.\vspace*{.5in}\\ \\
   }
 \DeclareOption{myorder}{
   \renewcommand*{\begincmd}{\doublespacing}}
-\DeclareOption{lot}{\renewcommand*{\makelot}{
-  \addcontentsline{toc}{section}{List of Tables}\listoftables}}
 \DeclareOption{lof}{\renewcommand*{\makelof}{
   \addcontentsline{toc}{section}{List of Figures}\listoffigures}}
 \DeclareOption{los}{
@@ -170,7 +168,7 @@ purpose of scholarly research.\vspace*{.5in}\\ \\
 \setlength{\textheight}{9in}
 \setlength{\textwidth}{6.0in}
 \long\def\abstract#1{\gdef\@abstract{#1}}
-\AtBeginDocument{\begincmd}
-\endinput
+\RequirePackage{etoolbox}
+\AfterEndPreamble{\begincmd}\endinput
 %% 
 %% End of file `puthesis_undergraduate.cls'.
