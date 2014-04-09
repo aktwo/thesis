@@ -1,31 +1,23 @@
-The purpose of this thesis was to test a new, weakly context-dependent multi-armed bandit algorithm that not only balances exploration and exploitation, but also BLAH. This new algorithm takes advantage of data from all other users, which allows it to scale well BLAH. 
+The purpose of this thesis was to test a new, weakly context-dependent multi-armed bandit algorithm that not only balances exploration and exploitation, but also selects never-before-seen arms for each user pair. By assuming that the payout from each arm are I.I.D, this new algorithm leverages all historical data (regardless of users) but still allows a certain level of user-specific recommendations. This, in turn, allows it to scale well over a large user base. 
 
-In order to test this new algorithm (UCB1-AKSB), I implemented an anonymous chatroom that I helped build and set it to optimize for maximizing conversation de-anonymizations. After collecting and analyzing conversation and user data, we can draw the following conclusions about the UCB1-AKSB algorithm. 
+In order to test this new algorithm (UCB1-AKSB), I implemented an anonymous chatroom that I helped build and optimized the algorithm to maximize conversation de-anonymizations. After collecting and analyzing conversation and user data, we can draw the following conclusions about the UCB1-AKSB algorithm.
 
 First, the data gathered suggests that some of the key assumptions underpinning the UCB1-AKSB algorithm may not be valid. For example, the two different regimes in the cumulative regret analysis in \autoref{sec:RegretAnalysis} suggest that the distribution of payouts for each bandit arm were not I.I.D as assumed, but rather weakly Markovian. In addition, the process of conversation de-anonymization may have been more context-dependent than the modified UCB1 algorithm accounted for.
 
-Second, it seems that the algorithm improved some conversation quality metrics but not the metric for which it was calibrated. This is probably due to the fact that the metric of conversation de-anonymization was not only dependent on conversation quality (and in some cases might have been completely independent or even negatively correlated) and a binary variable was not fine-grained enough for the size of the data-set that was available. When looking at other metrics of conversation quality, however, it does seem that the algorithm resulted in some noticeable improvement in conversation quality.
+Second, it seems that the algorithm improved some conversation quality metrics but not the metric for which it was calibrated. This is probably due to the fact that the metric of conversation de-anonymization was not only dependent on the conversation starter (and in some cases might have been completely independent or even negatively correlated) and such a binary variable was not fine-grained enough for the number of users. When looking at other metrics of conversation quality, however, it does seem that the algorithm resulted in some noticeable improvement in conversation quality over time. Moreover, the algorithm seems to have resulted in consistent improvement in per-user performance in all three of the conversation quality metrics defined in this paper (conversation de-anonymization, total conversation length and participation rate).
 
-Third, BLAH.
+Finally, the data suggests that, over time, the TA user base became stratified into two categories: power users and new users, with little middle ground. This resulted in increasing volatility in per-user conversation quality metrics (as explained in \autoref{sec:IndividualUserAnalysis}).
 
-In all, it seems that the UCB1-AKSB performed decently well given the violation of some of its fundamental assumptions and calibration on an imperfect metric. This leaves substantial room for further testing of this algorithm, and there are some clear recommendations that this thesis can make towards any future research. 
+In all, it seems that the UCB1-AKSB performed quite well given the violation of some of its fundamental assumptions, its calibration on an imperfect metric and the stratification/saturation of its user base. This leaves substantial room for further testing of this algorithm, and there are some clear recommendations that this thesis can make towards any future research in this area. 
 
-First, any future research would benefit from a larger user base to avoid the problems of user saturation and stratification mentioned in \autoref{sec:IndividualUserAnalysis}. Second, when applied in a similar context to TA (i.e. improving conversation quality), the algorithm's performance would likely be improved 
+First, any future research would benefit from a larger user base to avoid the problems of user saturation and stratification mentioned in \autoref{sec:IndividualUserAnalysis}. 
 
-\section{Future Improvements}
+Second, when applied in a similar context to TA (i.e. improving conversation quality), the algorithm's performance would likely be improved by using a better measure of conversation quality than the likelihood of de-anonymization. For example, one could use a hybrid metric, assigning a more finely tuned score based on multiple metrics (i.e. 0 for immediate disconnect, 0.3 for a short conversation, 0.7 for a long conversation, and 1 for a de-anonymization). Another option would be to do away with de-anonymization as a metric of success altogether, and instead make UCB1-AKSB optimize for either participation rate (i.e. no immediate disconnects) or average conversation length. 
 
-Although the performance of the algorithm was mixed 
+Third, the algorithm itself could be modified to work more effectively with a static set of arms (or a dynamic set of arms with a slow turnover rate). The current version of the algorithm outlined in \autoref{ch:Methods} simply serves a random arm if both user pairs have already seen the conversation starter. This could be improved by implementing a sliding time window: that is, only use the conversation starters that users $u$ and $v$ haven't seen within the last week or month. This could also be implemented as a sliding number of plays (i.e. only pick from arms that users $u$ and $v$ haven't seen within the last 10 plays).
 
-- Although this is disheartening, there is still room for future testing of this algorithm using other more fine-grained metrics.
-- IMPROVEMENTS
-	- Need more users, because problem of saturation mentioned above
-	- Calibrate on more fine-grained metrics, so that algorithm decisions won't be thrown off so easily
-      - Give a more finely tuned score based on a few criteria (i.e. give 0 for immediate disconnect, 0.3 for small convo, 0.7 for large convo and 1 for match)
-	- Sliding window to allow for fixed set of arms to be re-cycled optimally
+Finally, this algorithm has broad applications outside of simply selecting quirky conversation starters for an anonymous chatroom. 
 
+First, it is very fast and computationally easy to implement, as opposed to more intensive contextual bandit algorithms such as the one in \citet{chu10}. 
 
-For a fixed arm space (i.e. Tigers Anonymous conversation starters), a possible improvement to the UCB1-AKSB algorithm would be to have a moving time-window, so that both users would be guaranteed to see a conversation starter that they haven't seen in at least 5 uses or 5 days (i.e. number of uses or a fixed time length)
-
-FURTHER APPLICATIONS
-- A weakly contextual bandit that requires less computation
-- Could be used for recommendation algorithms that need to recommend newly generated content (such as blog posts, news websites, etc.) to a relatively homogenous user base
+Second, UCB1-AKSB (or at least some of the ideas behind it) can be applied to nearly every bandit recommendation algorithm. In stochastic multi-armed bandit recommendation systems, the UCB1-AKSB algorithm provides just the right level of context-dependency by leveraging the assumption that user responses are I.I.D (i.e. the user base is somewhat homogenous, at least in their responses to the arm) and still being weakly context-dependent. In other bandit algorithms that are more heavily context dependent, the arm-filtering mechanism used by UCB1-AKSB could be added on top of the existing bandit mechanism to ensure that users don't see an arm more than once. It is easy to see this algorithm being applied to recommend news articles, where novelty is important but readers of a given publication (i.e. NYTimes, FT, etc.) are relatively homogenous.
