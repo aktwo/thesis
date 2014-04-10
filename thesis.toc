@@ -11,18 +11,18 @@
 \contentsline {section}{\numberline {3.3}Tigers Anonymous Data Format}{9}{section.3.3}
 \contentsline {section}{\numberline {3.4}Tigers Anonymous UCB1-AKSB Implementation}{11}{section.3.4}
 \contentsline {chapter}{\numberline {4}Results}{14}{chapter.4}
-\contentsline {section}{\numberline {4.1}Regret Analysis}{14}{section.4.1}
-\contentsline {section}{\numberline {4.2}UCB1-AKSB Effectiveness}{16}{section.4.2}
+\contentsline {section}{\numberline {4.1}Regret Analysis}{15}{section.4.1}
+\contentsline {section}{\numberline {4.2}UCB1-AKSB Effectiveness}{17}{section.4.2}
 \contentsline {section}{\numberline {4.3}Individual User Analysis}{20}{section.4.3}
-\contentsline {chapter}{\numberline {5}Conclusion}{24}{chapter.5}
-\contentsline {chapter}{\numberline {A}Data Analysis Code}{27}{appendix.A}
-\contentsline {chapter}{\numberline {B}Conversation Starters}{33}{appendix.B}
-\contentsline {chapter}{\numberline {C}TA Back-End Implementation}{37}{appendix.C}
-\contentsline {section}{\numberline {C.1}Princeton IP-Address Filtering Functionality}{37}{section.C.1}
-\contentsline {section}{\numberline {C.2}User Matching Functionality}{38}{section.C.2}
-\contentsline {section}{\numberline {C.3}Web Server Functionality}{42}{section.C.3}
-\contentsline {section}{\numberline {C.4}Conversation Metadata Logging Model}{44}{section.C.4}
-\contentsline {chapter}{\numberline {D}TA Front-End Implementation}{45}{appendix.D}
-\contentsline {section}{\numberline {D.1}Homepage}{45}{section.D.1}
-\contentsline {section}{\numberline {D.2}About Page}{48}{section.D.2}
-\contentsline {section}{\numberline {D.3}Chatroom}{50}{section.D.3}
+\contentsline {chapter}{\numberline {5}Conclusion}{25}{chapter.5}
+\contentsline {chapter}{\numberline {A}Data Analysis Code}{28}{appendix.A}
+\contentsline {chapter}{\numberline {B}Conversation Starters}{34}{appendix.B}
+\contentsline {chapter}{\numberline {C}TA Back-End Implementation}{38}{appendix.C}
+\contentsline {section}{\numberline {C.1}Princeton IP-Address Filtering Functionality}{38}{section.C.1}
+\contentsline {section}{\numberline {C.2}User Matching Functionality}{39}{section.C.2}
+\contentsline {section}{\numberline {C.3}Web Server Functionality}{43}{section.C.3}
+\contentsline {section}{\numberline {C.4}Conversation Metadata Logging Model}{45}{section.C.4}
+\contentsline {chapter}{\numberline {D}TA Front-End Implementation}{46}{appendix.D}
+\contentsline {section}{\numberline {D.1}Homepage}{46}{section.D.1}
+\contentsline {section}{\numberline {D.2}About Page}{49}{section.D.2}
+\contentsline {section}{\numberline {D.3}Chatroom}{51}{section.D.3}

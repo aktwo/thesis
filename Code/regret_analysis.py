@@ -152,7 +152,7 @@ def save_dict_plot(d, title, xlabel='Date', ylabel='Metric'):
   plt.ylabel(ylabel)
   plt.plot(x, y)
   fig.autofmt_xdate()
-  fig.savefig('./Pictures/'+title.replace(' ', '')+'.jpg')
+  fig.savefig('../Figures/'+title.replace(' ', '')+'.jpg')
 
 def save_list_plot(l, title, xlabel='Conversation Index', ylabel='Metric'):
   fig, ax = plt.subplots()
@@ -160,7 +160,7 @@ def save_list_plot(l, title, xlabel='Conversation Index', ylabel='Metric'):
   plt.xlabel(xlabel)
   plt.ylabel(ylabel)
   plt.plot(l)
-  fig.savefig('./Pictures/'+title.replace(' ', '')+'.jpg')
+  fig.savefig('../Figures/'+title.replace(' ', '')+'.jpg')
 
 # Win ratio analysis, both daily and cumulatively
 def do_win_ratio_analysis(data, metric, metric_label, y_label, threshold=20):
@@ -187,7 +187,7 @@ def do_per_user_analysis(data, user1_metric, user2_metric, metric_title, slow_mo
   plt.plot(slow_moving_average, 'r--', label=('Slow-Moving Average (' + str(slow_moving_average_window) + ')'))
   plt.plot(fast_moving_average, 'g--', label=('Fast-Moving Average (' + str(fast_moving_average_window) + ')'))
   plt.legend(loc=legend_location)
-  fig.savefig('./Pictures/' + metric_title.replace(' ', '') +'.jpg')
+  fig.savefig('../Figures/' + metric_title.replace(' ', '') +'.jpg')
 
 
 ####################################################################
@@ -196,17 +196,6 @@ def do_per_user_analysis(data, user1_metric, user2_metric, metric_title, slow_mo
 
 # Load the JSON data
 data = json.load(open('ta_data.json', 'r'))
-second_half_data = json.load(open('second_half_ta_data.json', 'r'))
-first_half_data = json.load(open('first_half_ta_data.json', 'r'))
-
-# Do cumulative regret analysis on truncated data
-do_cumulative_regret_analysis(first_half_data, fb_match_occurred, 'TA De-Anonymization Regret (First Half of Data)')
-do_cumulative_regret_analysis(second_half_data, fb_match_occurred, 'TA De-Anonymization Regret (Second Half of Data)')
-do_cumulative_regret_analysis(first_half_data, no_immediate_disconnect_occurred, 'TA Participation Rate Regret (First Half of Data)')
-do_cumulative_regret_analysis(second_half_data, no_immediate_disconnect_occurred, 'TA Participation Rate Regret (Second Half of Data)')
-do_cumulative_regret_analysis(first_half_data, total_user_messages_sent, 'TA Messages Sent Regret (First Half of Data)')
-do_cumulative_regret_analysis(second_half_data, total_user_messages_sent, 'TA Messages Sent Regret (Second Half of Data)')
-
 
 # Do win-ratio analysis
 do_win_ratio_analysis(data, fb_match_occurred, 'TA De-Anonymization', 'Proportion of De-Anonymized Conversations')
