@@ -1,8 +1,6 @@
 \section{UCB1-AKSB Algorithm}
 
-The multi-armed bandit algorithm used by Tigers Anonymous is a novel variant of the well-known UCB1 algorithm \citep{auer02}. The new algorithm is outlined below:
-
-Before explaining the algorithm, it will be useful to introduce notation. Let the users be represented as the set $U$ and the bandit arms as the set $X$. Let the set of arms that have already been played for user $u\in{U}$ be represented by the set $X^u \subset{X}$. The goal of the UCB1-AKSB algorithm is to pick some arm $x\in{X}$ given the pair of users $u,v \in{U}$. In this specific application, the goal is to pick the optimal conversation starter $x\in{X}$.
+The multi-armed bandit algorithm used by Tigers Anonymous, named UCB1-AKSB, is a novel variant of the well-known UCB1 algorithm \citep{auer02}. Before explaining the algorithm, it will be useful to introduce notation. Let the users be represented as the set $U$ and the bandit arms as the set $X$. Let the set of arms that have already been played for user $u\in{U}$ be represented by the set $X^u \subset{X}$. The goal of the UCB1-AKSB algorithm is to pick some arm $x\in{X}$ given the pair of users $u,v \in{U}$. In this specific application, the goal is to pick the optimal conversation starter $x\in{X}$.
 
 The UCB1-AKSB algorithm proceeds as follows: For each pair of users $u,v\in{U}$, we pick the conversation starter $x$ such that
 
@@ -32,12 +30,13 @@ The complete data-collection method used for this thesis is outlined below:
 \item Two users visit www.tigersanonymous.com/chat from a Princeton IP address.
 \item The users are directed to the chat server and are matched on a first-come, first-served basis.
 \item A conversation starter is selected based on the UCB1-AKSB algorithm described above.
-\item After either of the users disconnects, a 10-tuple representing the chat session is logged in a database (see Data Format section below for more details).
+\item After either of the users disconnects, a 10-tuple representing the chat session is logged in a database (see \autoref{sec:TADataFormat} for more details).
 \end{enumerate}
 
 \section{Tigers Anonymous Data Format}
+\label{sec:TADataFormat}
 
-The data that will be collected can be represented by the vector of 10-tuples of the form: $$(x_i, y_i, t0_i, t1_i, q_i, b_i, c1_i, c2_i, m1_i, m2_i)$$ where $x_i$ and $y_i$ represent the pseudonymous user ids of the two participants in the chat, $t0_i$ and $t1_i$ represent the start and end times of the conversation, $q_i$ represents the conversation starter, $b_i \in {(0, 1)}$ represents whether the drop-down menu was displayed (i.e. both chat participants exchanged more than a predefined number of messages), $c1_i, c2_i \in{(0, 1)}$ represent whether users $x_i$ and $y_i$ opted to de-anonymize the conversation respectively and $m1_i, m2_i \in{(0,1)}$ represent the number of messages that user $x_i$ and $y_i$ sent respectively. The subscript $i$ is unique for each conversation. 
+The data that will be collected can be represented by the vector of 10-tuples of the form: $$(x_i, y_i, t^0_i, t^1_i, q_i, b_i, c^1_i, c^2_i, m^1_i, m^2_i)$$ where $x_i$ and $y_i$ represent the pseudonymous user ids of the two participants in the chat, $t^0_i$ and $t^1_i$ represent the start and end times of the conversation, $q_i$ represents the conversation starter, $b_i \in {(0, 1)}$ represents whether the drop-down menu was displayed (i.e. both chat participants exchanged more than a predefined number of messages), $c^1_i, c^2_i \in{(0, 1)}$ represent whether users $x_i$ and $y_i$ opted to de-anonymize the conversation respectively and $m^1_i, m^2_i \in{(0,1)}$ represent the number of messages that user $x_i$ and $y_i$ sent respectively. The subscript $i$ is unique for each conversation. 
 
 A sample of this data is shown below: 
 

@@ -49,7 +49,7 @@ io.configure('production', function() {
   });
 });
 
-// Needed to get the client's IP on Heroku for socket.io
+// Need to get the client's IP on Heroku for socket.io
 function getClientIP(handshakeData) {
   var forwardedIps = handshakeData.headers['x-forwarded-for'];
   if (forwardedIps) {

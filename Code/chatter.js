@@ -145,7 +145,6 @@ exports.connectChatter = function(socket, userID) {
   if (queue.length === 0) {
     queue.push(user);
 
-    // TODO: remove listener instead of checking index
     user.socket.on('disconnect', function() {
       var index = queue.indexOf(user);
       if (index !== -1) {
