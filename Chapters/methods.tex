@@ -42,14 +42,40 @@ The data that will be collected can be represented by the vector of 10-tuples of
 A sample of this data is shown below: 
 
 \begin{lstlisting}[language=java]
-[{ "userID1" : "9a675a6f581fd1dfa0b982826e75b4f5", "userID2" : "a8262bb13e641e2bf5dcb3985b2061be", "question" : "Do you believe in love at first sight?", "startTime" : 1390873110621, "endTime" : 1390873162944, "buttonDisplayed" : false, "user1Clicked" : false, "user2Clicked" : false, "user1MessagesSent" : 1, "user2MessagesSent" : 0, "_id" : "52e70a4ac43b6d020079e52d", "__v" : 0 },
-{ "userID1" : "a8262bb13e641e2bf5dcb3985b2061be", "userID2" : "9a675a6f581fd1dfa0b982826e75b4f5", "question" : "Do you believe in soul mates?", "startTime" : 1390873219878, "endTime" : 1390873263469, "buttonDisplayed" : false, "user1Clicked" : false, "user2Clicked" : false, "user1MessagesSent" : 1, "user2MessagesSent" : 2, "_id" : "52e70aafc43b6d020079e52e", "__v" : 0 },
-{ "userID1" : "27ac4f2d7e40b5249c2edcba19e21fb8", "userID2" : "370f85e443ad3ee24a879b1ce5a2b54b", "question" : "What is one thing you miss about being a kid?", "startTime" : 1390876198530, "endTime" : 1390876307059, "buttonDisplayed" : false, "user1Clicked" : false, "user2Clicked" : false, "user1MessagesSent" : 1, "user2MessagesSent" : 0, "_id" : "52e71693c43b6d020079e52f", "__v" : 0 },
-{ "userID1" : "370f85e443ad3ee24a879b1ce5a2b54b", "userID2" : "6e0fe76fca80cf2920bd5fc7717cf6dd", "question" : "What's one thing that you learned this week?", "startTime" : 1390881063228, "endTime" : 1390882681992, "buttonDisplayed" : true, "user1Clicked" : true, "user2Clicked" : true, "user1MessagesSent" : 33, "user2MessagesSent" : 37, "_id" : "52e72f79c43b6d020079e531", "__v" : 0 },
-...]
+[
+  { 
+    "userID1" : "a8262bb13e641e2bf5dcb3985b2061be",
+    "userID2" : "9a675a6f581fd1dfa0b982826e75b4f5",
+    "question" : "Do you believe in soul mates?",
+    "startTime" : 1390873219878,
+    "endTime" : 1390873263469,
+    "buttonDisplayed" : false,
+    "user1Clicked" : false,
+    "user2Clicked" : false,
+    "user1MessagesSent" : 1,
+    "user2MessagesSent" : 2,
+    "_id" : "52e70aafc43b6d020079e52e",
+    "__v" : 0
+  },
+  {
+    "userID1" : "370f85e443ad3ee24a879b1ce5a2b54b",
+    "userID2" : "6e0fe76fca80cf2920bd5fc7717cf6dd",
+    "question" : "What's one thing that you learned this week?",
+    "startTime" : 1390881063228,
+    "endTime" : 1390882681992,
+    "buttonDisplayed" : true,
+    "user1Clicked" : true,
+    "user2Clicked" : true,
+    "user1MessagesSent" : 33,
+    "user2MessagesSent" : 37,
+    "_id" : "52e72f79c43b6d020079e531",
+    "__v" : 0 
+  }, 
+  ...
+]
 \end{lstlisting}
 
-\section{Tigers Anonymous UCB1-AKSB Implementation}
+\section{TA UCB1-AKSB Implementation}
 
 This is the code on the Tigers Anonymous chat server that implements the UCB1-AKSB algorithm.
 

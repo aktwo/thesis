@@ -4,17 +4,17 @@
 \BOOKMARK [0][-]{chapter.1}{Introduction}{}% 4
 \BOOKMARK [1][-]{section.1.1}{What is Tigers Anonymous?}{chapter.1}% 5
 \BOOKMARK [1][-]{section.1.2}{Why Multi-Armed Bandits?}{chapter.1}% 6
-\BOOKMARK [0][-]{chapter.2}{Literature Review}{}% 7
+\BOOKMARK [0][-]{chapter.2}{Background Research}{}% 7
 \BOOKMARK [0][-]{chapter.3}{Methods}{}% 8
 \BOOKMARK [1][-]{section.3.1}{UCB1-AKSB Algorithm}{chapter.3}% 9
 \BOOKMARK [1][-]{section.3.2}{Tigers Anonymous Data Collection Methods}{chapter.3}% 10
 \BOOKMARK [1][-]{section.3.3}{Tigers Anonymous Data Format}{chapter.3}% 11
-\BOOKMARK [1][-]{section.3.4}{Tigers Anonymous UCB1-AKSB Implementation}{chapter.3}% 12
+\BOOKMARK [1][-]{section.3.4}{TA UCB1-AKSB Implementation}{chapter.3}% 12
 \BOOKMARK [0][-]{chapter.4}{Results}{}% 13
 \BOOKMARK [1][-]{section.4.1}{Regret Analysis}{chapter.4}% 14
 \BOOKMARK [1][-]{section.4.2}{UCB1-AKSB Effectiveness}{chapter.4}% 15
 \BOOKMARK [1][-]{section.4.3}{Individual User Analysis}{chapter.4}% 16
-\BOOKMARK [0][-]{chapter.5}{Conclusion}{}% 17
+\BOOKMARK [0][-]{chapter.5}{Conclusions}{}% 17
 \BOOKMARK [0][-]{appendix.A}{Data Analysis Code}{}% 18
 \BOOKMARK [0][-]{appendix.B}{Conversation Starters}{}% 19
 \BOOKMARK [0][-]{appendix.C}{TA Back-End Implementation}{}% 20

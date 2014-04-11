@@ -4,7 +4,7 @@ var questions = require('./questions').list;
 var largePositiveNumber = 1000000000;
 var largeNegativeNumber = -1000000000;
 
-// UCB1 function to pick opening question
+// UCB1-AKSB algorithm to pick conversation starter
 exports.getQuestion = function(collection, user1, user2, callback) {
   var questionAsked = {
     $or: [
@@ -22,7 +22,7 @@ exports.getQuestion = function(collection, user1, user2, callback) {
     timesShown: {$sum: {$cond: [questionAsked, 1, 0]}}
   };
 
-  // Aggregate conversation data and call UCB callback
+  // Aggregate conversation data and invoke UCB1 on set of never-before-seen arms
   collection.aggregate().group(outputFormat).exec(function(err, data) {
     if (err) console.log(err);
     UCB1(data, callback);
@@ -35,7 +35,7 @@ var getRandomQuestion = function() {
   return questions[randomIndex];
 };
 
-// Helper function to invoke callback on the data item with the max UCB value
+// Calculate UCB1 values for all possible arms in data
 var UCB1 = function(data, callback) {
   var finalData = {};
 
@@ -80,7 +80,7 @@ var UCB1 = function(data, callback) {
     }
 
     if (Object.keys(finalData).length > 0) {
-      // Find question with max UCB value
+      // Find question with max UCB1 value
       var bestValue = largeNegativeNumber;
       var bestMatch = null;
       for (var question in finalData) {
